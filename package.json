@@ -1,0 +1,12 @@
+{
+  "name": "my-website-dev-prod",
+  "version": "1.0.0",
+  "description": "my website ayy lmao",
+  "main": "babel_transpiler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node babel_transpiler.js"
+  },
+  "author": "Zachary Graham",
+  "license": "ISC"
+}
