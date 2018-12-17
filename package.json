@@ -8,5 +8,8 @@
     "start": "node babel_transpiler.js"
   },
   "author": "Zachary Graham",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "babel-register": "^6.26.0"
+  }
 }
