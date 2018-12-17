@@ -1,2 +1,2 @@
 #!/bin/bash
-node ./babel_transpiler.js
+node babel_transpiler.js
