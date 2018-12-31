@@ -4,7 +4,10 @@ import { awards, PersonalAwards } from './PersonalAwards'
 
 let trackIdToCollabId = {};
 let collabIdToCollabObj = {};
-
+let primaryColors = ["red", "blue", "yellow", "green", "orange", "purple", "hotpink", "aqua"];
+let secondaryColors = ["rgb(255, 0, 0, 0.2)", "rgb(0, 0, 255, 0.2)", "rgb(255, 255, 0, 0.2)",
+                       "rgb(0, 128, 0, 0.2)", "rgb(255, 165, 0, 0.2)", "rgb(128, 0, 128, 0.2)",
+                       "rgb(255, 105, 180, 0.2)", "rgb(0, 255, 255, 0.2)"];
 export class Collaborator {
   constructor(id, trackIds=[]){
     this.id = id;
@@ -12,6 +15,8 @@ export class Collaborator {
     this.trackIds = trackIds;
     this.img = null;
     this.name = null;
+    this.primaryColor = primaryColors.shift();
+    this.secondaryColor = secondaryColors.shift();
     this.score = new Score();
     this.awards = new PersonalAwards();
   }
@@ -19,6 +24,7 @@ export class Collaborator {
   addTrackId(trackId) {
     this.trackIds.push(trackId);
     trackIdToCollabId[trackId] = this.id;
+    this.score.increaseNumTracks();
   }
   setImage(img) {
     this.img = img;

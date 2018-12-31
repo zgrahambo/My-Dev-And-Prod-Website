@@ -1,6 +1,7 @@
 class Score {
   constructor(scoreSet) {
     if(scoreSet === undefined) {
+      this.numTracks = 0;
       this.duration = 0;
       this.popularity = 0;
       this.acousticness = 0;
@@ -24,6 +25,9 @@ class Score {
       this.loudness = scoreSet.loudness;
       this.instrumentalness = scoreSet.instrumentalness;
     }
+  }
+  increaseNumTracks() {
+    this.numTracks += 1;
   }
   increaseDuration(duration) {
     this.duration += duration;
@@ -56,7 +60,8 @@ class Score {
     this.instrumentalness += instrumentalness;
   }
 
-  getAverages(n) {
+  getAverages() { // n = number of tracks
+    const n = this.numTracks;
     return {
       popularity: this.popularity/n,
       acousticness: this.acousticness/n,

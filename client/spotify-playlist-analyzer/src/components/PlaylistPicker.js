@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPlaylists, fetchPlaylistInfo } from '../actions/spotifyActions'
+import { fetchPlaylists, fetchPlaylistInfo } from '../actions/spotifyActions';
 
-import { Grid, Menu, Image } from 'semantic-ui-react'
-import loading_gif from '../img/loading.gif'
+import { Grid, Menu, Image } from 'semantic-ui-react';
+import loading_gif from '../img/loading.gif';
 
 class PlaylistPicker extends Component {
   constructor(props) {
@@ -33,9 +33,10 @@ class PlaylistPicker extends Component {
     let menuItems = this.extractCollabPlaylists(this.props.playlists);
     let loadingSpinner = this.props.loading && <Image src={loading_gif} centered/>;
 
+    // Grid is 16 columns by default.
     return (!this.props.playlistChosen &&
-      <Grid centered columns={3}>
-        <Grid.Column>
+      <Grid centered>
+        <Grid.Column width={10}>
           <Menu inverted fluid vertical>
             <Menu.Item header>Collaborative Playlists</Menu.Item>
             {menuItems}

@@ -1,10 +1,12 @@
 {
   "name": "spotify-playlist-analyzer",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
+    "chart.js": "^2.7.3",
     "node-fetch": "^2.3.0",
     "react": "^16.6.3",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.0",
     "react-scripts": "2.1.1",

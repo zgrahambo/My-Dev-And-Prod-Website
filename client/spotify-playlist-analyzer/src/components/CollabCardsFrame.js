@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import { CardGroup } from 'semantic-ui-react'
 import CollabCard from './CollabCard';
-
-const defaultAvatar = 'https://upload.wikimedia.org/wikipedia/commons/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg';
+import defaultProfilePic from '../img/defaultProfilePic.png';
 
 class CollabCardsFrame extends Component {
 
@@ -14,14 +13,15 @@ class CollabCardsFrame extends Component {
       const collaborators = this.props.collaborators,
         collabInfoLoaded = this.props.collabInfoLoaded,
         collabAwardsLoaded = this.props.collabAwardsLoaded;
-      let currentCollaborator, img, name, awards;
+      let currentCollaborator, img, name, color, awards;
       for (let i in collaborators) {
-        currentCollaborator = collaborators[i];
-        img = collabInfoLoaded ? currentCollaborator.img : defaultAvatar;
+        currentCollaborator = collaborators[i]; 
+        img = collabInfoLoaded ? currentCollaborator.img : defaultProfilePic;
         name = collabInfoLoaded ? currentCollaborator.name : 'Unknown User';
+        color = collabInfoLoaded ? currentCollaborator.primaryColor : "";
         awards = collabAwardsLoaded ? currentCollaborator.awards.awardList : [];
         cards.push(<CollabCard key={i} numTracksAdded={currentCollaborator.getNumTracks()}
-                               img={img} name={name} awards={awards}/>);
+                               img={img} name={name} awards={awards} color={color}/>);
       }
     }
     return cards;

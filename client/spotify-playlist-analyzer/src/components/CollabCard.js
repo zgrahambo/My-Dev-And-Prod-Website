@@ -4,6 +4,8 @@ import { Card, Segment, Image, Icon } from 'semantic-ui-react'
 class CollabCard extends Component {
   render() {
     const awardsArray = this.props.awards;
+    const color = this.props.color;
+    const border = (color !== "" ? "1px " + color + " solid" : "");
     let awards = [];
     for (let i = 0; i <awardsArray.length; i++) {
       awards.push(<p key={awardsArray[i].icon}>
@@ -13,7 +15,7 @@ class CollabCard extends Component {
     }
 
     return (
-      <Card id="">
+      <Card link style={{border: border}}>
         <Segment style={{marginBottom: 0}} basic>
           <Image width='200' height='200' circular src={this.props.img} wrapped/>
         </Segment>
