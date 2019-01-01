@@ -7,7 +7,8 @@ class Infoblock extends Component {
       <Grid.Column>
         <Segment>
           <a className="ui header" data-position="top center"
-             data-variation="small" href={ this.props.href }>
+             data-variation="small" href={ this.props.href } 
+             target={ this.props.target }>
             <Icon name={ this.props.iconClass }/> { this.props.infoText }
           </a>
         </Segment>

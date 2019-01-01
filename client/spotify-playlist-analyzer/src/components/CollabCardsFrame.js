@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { CardGroup } from 'semantic-ui-react'
+import { Header, CardGroup } from 'semantic-ui-react'
 import CollabCard from './CollabCard';
 import defaultProfilePic from '../img/defaultProfilePic.png';
 
@@ -28,6 +28,7 @@ class CollabCardsFrame extends Component {
   }
 
   render() {
+    const name = this.props.playlistInfo && this.props.playlistInfo.name;
     const cards = this.createCards();
     const collaborators = this.props.collaborators;
     console.log("rEnDeRiNg CollabCardsFrame");
@@ -37,13 +38,18 @@ class CollabCardsFrame extends Component {
     const numCardsPerRow = Object.keys(collaborators).length % (maxPerRow+1);
 
     return (
-      <CardGroup itemsPerRow={numCardsPerRow > 0 ? numCardsPerRow : 1}>
-        { cards }
-      </CardGroup>
+      <div>
+
+        <Header textAlign="center" as="h2">{name !== null ? "Analyzing Playlist: \"" +  name + "\"": ''}</Header>
+        <CardGroup itemsPerRow={numCardsPerRow > 0 ? numCardsPerRow : 1}>
+          { cards }
+        </CardGroup>
+      </div>
     );
   }
 }
 const mapStateToProps = state => ({
+  playlistInfo: state.playlistInfo.playlistInfo,
   collaborators: state.playlistInfo.collaborators,
   loading: state.playlistInfo.loading,
   error: state.playlistInfo.error,

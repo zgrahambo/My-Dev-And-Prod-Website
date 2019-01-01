@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPlaylists, fetchPlaylistInfo } from '../actions/spotifyActions';
 
-import { Grid, Menu, Image } from 'semantic-ui-react';
+import { Header, Grid, Menu, Image } from 'semantic-ui-react';
 import loading_gif from '../img/loading.gif';
 
 class PlaylistPicker extends Component {
@@ -35,15 +35,18 @@ class PlaylistPicker extends Component {
 
     // Grid is 16 columns by default.
     return (!this.props.playlistChosen &&
-      <Grid centered>
-        <Grid.Column width={10}>
-          <Menu inverted fluid vertical>
-            <Menu.Item header>Collaborative Playlists</Menu.Item>
-            {menuItems}
-          </Menu>
-          {loadingSpinner}
-        </Grid.Column>
-      </Grid>
+      <div>
+        {!this.props.loading && <Header textAlign="center" as="h2"> Choose a playlist:</Header>}
+        <Grid centered>
+          <Grid.Column width={10}>
+            <Menu inverted fluid vertical>
+              <Menu.Item header>Collaborative Playlists</Menu.Item>
+              {menuItems}
+            </Menu>
+            {loadingSpinner}
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }

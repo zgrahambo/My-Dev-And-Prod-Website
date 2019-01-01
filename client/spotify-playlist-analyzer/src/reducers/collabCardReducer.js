@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   collaborators: {},
+  playlistInfo: null,
   loading: false,
   error: null,
   playlistChosen: false,
@@ -21,6 +22,7 @@ export default function(state=initialState, action) {
         ...state,
         playlistChosen: true,
         loading: true,
+        playlistInfo: action.payload,
         error: null
       };
     case FETCH_TRACKS_INFO_SUCCESS:

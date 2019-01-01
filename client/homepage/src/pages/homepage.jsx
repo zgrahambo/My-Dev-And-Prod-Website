@@ -20,12 +20,12 @@ class Homepage extends Component {
         </AboutMeFrame>
         <Divider />
         <InfoblocksFrame>
-          <Infoblock href="https://www.scu.edu" qckDesc="My Alma Mater" iconClass="university" infoText="SCU" />
+          <Infoblock target="_blank" href="https://www.scu.edu" qckDesc="My Alma Mater" iconClass="university" infoText="SCU" />
           <Infoblock href="mailto:zgraham@scu.edu" qckDesc="Email Me" iconClass="mail" infoText="zgraham@scu.edu" />
-          <Infoblock href="https://github.com/zgrahambo" qckDesc="My Github" iconClass="github" infoText="zgrahambo" />
-          <Infoblock href="" qckDesc="Home" iconClass="home" infoText="Santa Clara, CA" />
-          <Infoblock href="documents/Zachary_Graham_Resume.pdf" qckDesc="My Resume" iconClass="file pdf outline" infoText="Resume" />
-          <Infoblock href="https://www.ebay.com" qckDesc="My Workplace" iconClass="suitcase" infoText="eBay" />
+          <Infoblock target="_blank" href="https://github.com/zgrahambo" qckDesc="My Github" iconClass="github" infoText="zgrahambo" />
+          <Infoblock href="javascript:void(0)" qckDesc="Home" iconClass="home" infoText="Santa Clara, CA" />
+          <Infoblock target="_blank" href="documents/Zachary_Graham_Resume.pdf" qckDesc="My Resume" iconClass="file pdf outline" infoText="Resume" />
+          <Infoblock target="_blank" href="https://www.ebay.com" qckDesc="My Workplace" iconClass="suitcase" infoText="eBay" />
           <Infoblock href="/spa" qckDesc="Spotify Collaborative Playlist Analyzer" iconClass="spotify" infoText="Spotify Collab-Playlist Analyzer" />
         </InfoblocksFrame>
       </Container>
