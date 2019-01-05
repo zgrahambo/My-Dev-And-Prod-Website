@@ -77,6 +77,3 @@ typings/
 
 #DynamoDB Local files 
 .dynamodb/ 
-
-#Semantic default files
-semantic/dist/
