@@ -39,7 +39,6 @@ class CollabCardsFrame extends Component {
 
     return (
       <div>
-
         <Header textAlign="center" as="h2">{name !== null ? "Analyzing Playlist: \"" +  name + "\"": ''}</Header>
         <CardGroup itemsPerRow={numCardsPerRow > 0 ? numCardsPerRow : 1}>
           { cards }
