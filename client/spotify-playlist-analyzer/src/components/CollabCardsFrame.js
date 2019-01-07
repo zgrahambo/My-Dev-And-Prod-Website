@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Header, CardGroup } from 'semantic-ui-react'
+import Error from './Error';
 import CollabCard from './CollabCard';
 import defaultProfilePic from '../img/defaultProfilePic.png';
 
@@ -36,7 +37,9 @@ class CollabCardsFrame extends Component {
 
     const maxPerRow = 5;
     const numCardsPerRow = Object.keys(collaborators).length % (maxPerRow+1);
-
+    if (this.props.error) {
+      return <Error msg={this.props.error.msg} />;
+    }
     return (
       <div>
         <Header textAlign="center" as="h2">{name !== null ? "Analyzing Playlist: \"" +  name + "\"": ''}</Header>

@@ -33,7 +33,10 @@ export function fetchPlaylists(token) {
       })
       .catch(error => dispatch({
         type: FETCH_PLAYLISTS_FAILURE,
-        payload: error
+        payload: {
+          msg: "Something went wrong with the connection to the Spotify API",
+          link: ""
+        }
       }));
   }
 }
