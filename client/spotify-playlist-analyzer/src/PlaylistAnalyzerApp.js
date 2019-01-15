@@ -49,7 +49,6 @@ class PlaylistAnalyzerApp extends Component {
             <Header textAlign="center" as="h1">
               Spotify Collaborative Playlist Analyzer
             </Header>
-            <Divider />
             <ErrorBoundary>
               <PlaylistPicker token={ accessToken } />
               <CollabCardsFrame token={ accessToken } />
