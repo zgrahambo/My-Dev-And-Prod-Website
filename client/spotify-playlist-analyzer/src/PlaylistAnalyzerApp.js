@@ -3,6 +3,7 @@ import { Container, Header, Divider } from 'semantic-ui-react'
 import PlaylistPicker from './components/PlaylistPicker'
 import CollabCardsFrame from './components/CollabCardsFrame';
 import CollabChart from './components/CollabChart';
+import ErrorBoundary from './components/error-handling/ErrorBoundary';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -48,11 +49,13 @@ class PlaylistAnalyzerApp extends Component {
             <Header textAlign="center" as="h1">
               Spotify Collaborative Playlist Analyzer
             </Header>
-            <PlaylistPicker token={ accessToken } />
-            <CollabCardsFrame token={ accessToken } />
-            <CollabChart token={ accessToken } />
-            <br/>
             <Divider />
+            <ErrorBoundary>
+              <PlaylistPicker token={ accessToken } />
+              <CollabCardsFrame token={ accessToken } />
+              <CollabChart token={ accessToken } />
+            </ErrorBoundary>
+            <br/>
           </Container>
         </Provider>
       );

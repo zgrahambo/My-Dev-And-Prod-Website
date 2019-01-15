@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-//import {  } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { Radar } from 'react-chartjs-2';
 
 class CollabChart extends Component {
@@ -45,10 +45,14 @@ class CollabChart extends Component {
       datasets: datasets
     };
     return (this.props.collabAwardsLoaded && 
-      <Radar data={data}
-      options={options}
-      width={50} 
-      height={50} />
+      <Grid centered>
+        <Grid.Column width={10}>
+          <Radar data={data}
+                  options={options}
+                  width={50} 
+                  height={50} />
+        </Grid.Column>
+      </Grid>
     );
   }
 }

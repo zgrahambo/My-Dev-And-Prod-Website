@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchPlaylists, fetchPlaylistInfo } from '../actions/spotifyActions';
 
 import { Header, Grid, Menu, Image } from 'semantic-ui-react';
+import Error from './error-handling/Error';
 import loading_gif from '../img/loading.gif';
 
 class PlaylistPicker extends Component {
@@ -29,6 +30,10 @@ class PlaylistPicker extends Component {
 
   render() {
     console.log("RENDERING PlaylistPicker");
+    const error = this.props.error;
+    if (error) {
+      return <Error msg={error.msg} link={error.link} linkText={error.linkText}/>;
+    }
 
     let menuItems = this.extractCollabPlaylists(this.props.playlists);
     let loadingSpinner = this.props.loading && <Image src={loading_gif} centered/>;

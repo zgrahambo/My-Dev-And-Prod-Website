@@ -35,7 +35,7 @@ export function fetchPlaylists(token) {
         type: FETCH_PLAYLISTS_FAILURE,
         payload: {
           msg: "Something went wrong with the connection to the Spotify API",
-          link: ""
+          linkText: "Try with new token!"
         }
       }));
   }
