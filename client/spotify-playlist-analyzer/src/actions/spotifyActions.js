@@ -12,11 +12,6 @@ import {
 import { generateCollaboratorObjects, getCollaboratorData, getCollabAwards } from '../spotify/Collaborator';
 import fetch from "node-fetch";
 
-const windowLoc = window.location;
-const spaUrl = windowLoc.protocol + '//' + 
-               windowLoc.host +
-               windowLoc.pathname;
-
 /* fetchPlaylists is a function that takes in */
 /* spotify token and returns an async function  */
 /*  that is sent as a prop to the component     */
@@ -40,7 +35,6 @@ export function fetchPlaylists(token) {
         type: FETCH_PLAYLISTS_FAILURE,
         payload: {
           msg: "Something went wrong with the connection to the Spotify API",
-          link: spaUrl,
           linkText: "Try with new token!"
         }
       }));

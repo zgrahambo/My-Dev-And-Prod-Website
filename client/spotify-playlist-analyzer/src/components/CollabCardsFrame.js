@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Header, CardGroup } from 'semantic-ui-react'
-import Error from './Error';
+import Error from './error-handling/Error';
 import CollabCard from './CollabCard';
 import defaultProfilePic from '../img/defaultProfilePic.png';
 
