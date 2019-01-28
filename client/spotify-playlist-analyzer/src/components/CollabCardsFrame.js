@@ -29,7 +29,7 @@ class CollabCardsFrame extends Component {
   }
 
   render() {
-    const name = this.props.playlistInfo && this.props.playlistInfo.name;
+    const name = this.props.playlistName;
     const cards = this.createCards();
     const collaborators = this.props.collaborators;
     console.log("rEnDeRiNg CollabCardsFrame");
@@ -42,7 +42,7 @@ class CollabCardsFrame extends Component {
     }
     return (
       <div>
-        <Header textAlign="center" as="h2">{name !== null ? "Analyzing Playlist: \"" +  name + "\"": ''}</Header>
+        <Header textAlign="center" as="h2">{name ? "Analyzing Playlist: \"" +  name + "\"": ''}</Header>
         <CardGroup itemsPerRow={numCardsPerRow > 0 ? numCardsPerRow : 1}>
           { cards }
         </CardGroup>
@@ -51,12 +51,12 @@ class CollabCardsFrame extends Component {
   }
 }
 const mapStateToProps = state => ({
-  playlistInfo: state.playlistInfo.playlistInfo,
-  collaborators: state.playlistInfo.collaborators,
+  playlistName: state.playlistInfo.playlistName,
   loading: state.playlistInfo.loading,
   error: state.playlistInfo.error,
-  collabInfoLoaded: state.playlistInfo.collabInfoLoaded,
-  collabAwardsLoaded: state.playlistInfo.collabAwardsLoaded
+  collaborators: state.collabInfo.collaborators,
+  collabInfoLoaded: state.collabInfo.collabInfoLoaded,
+  collabAwardsLoaded: state.collabInfo.collabAwardsLoaded
 });
 
 export default connect(mapStateToProps, {}) (CollabCardsFrame);

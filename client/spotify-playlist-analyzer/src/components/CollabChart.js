@@ -57,9 +57,9 @@ class CollabChart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  collaborators: state.playlistInfo.collaborators,
-  collabInfoLoaded: state.playlistInfo.collabInfoLoaded,
-  collabAwardsLoaded: state.playlistInfo.collabAwardsLoaded
+  collaborators: state.collabInfo.collaborators,
+  collabInfoLoaded: state.collabInfo.collabInfoLoaded,
+  collabAwardsLoaded: state.collabInfo.collabAwardsLoaded
 });
 
 export default connect(mapStateToProps, {}) (CollabChart);

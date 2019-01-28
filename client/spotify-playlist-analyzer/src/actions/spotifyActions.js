@@ -45,7 +45,7 @@ export function fetchPlaylistInfo(token, playlistInfo) {
   return (dispatch) => {
     dispatch({
       type: PLAYLIST_CHOSEN_TRACK_INFO_LOADING,
-      payload: playlistInfo
+      payload: playlistInfo.name
     });
     fetchPlaylistTracksInfo(token, playlistInfo.tracks.href, dispatch)
       .then(tracks => generateCollaboratorObjects(tracks))

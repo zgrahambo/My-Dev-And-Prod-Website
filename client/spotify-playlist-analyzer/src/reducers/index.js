@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import playlistPickerReducer from './playlistPickerReducer';
-import collabCardReducer from './collabCardReducer';
+import playlistInfoReducer from './playlistInfoReducer';
+import collabInfoReducer from './collabInfoReducer';
 
 export default combineReducers({
   playlists: playlistPickerReducer,
-  playlistInfo: collabCardReducer
+  playlistInfo: playlistInfoReducer,
+  collabInfo: collabInfoReducer
 });

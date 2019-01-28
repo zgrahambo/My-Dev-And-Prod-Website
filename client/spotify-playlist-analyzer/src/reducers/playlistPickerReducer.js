@@ -13,8 +13,7 @@ export default function(state=initialState, action) {
     case FETCH_PLAYLISTS_LOADING:
       return {
         ...state,
-        loading: true,
-        error: null
+        loading: true
       };
     case FETCH_PLAYLISTS_SUCCESS:
       return {
