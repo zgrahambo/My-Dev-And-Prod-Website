@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Segment, Image, Icon } from 'semantic-ui-react'
+import { Card, Segment, Image, Icon } from 'semantic-ui-react';
 
 class CollabCard extends Component {
   render() {
