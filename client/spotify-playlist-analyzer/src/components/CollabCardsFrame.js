@@ -15,13 +15,13 @@ class CollabCardsFrame extends Component {
         collabInfoLoaded = this.props.collabInfoLoaded,
         collabAwardsLoaded = this.props.collabAwardsLoaded;
       let currentCollaborator, img, name, color, awards;
-      for (let i in collaborators) {
-        currentCollaborator = collaborators[i]; 
+      for (let id in collaborators) {
+        currentCollaborator = collaborators[id]; 
         img = collabInfoLoaded ? currentCollaborator.img : defaultProfilePic;
         name = collabInfoLoaded ? currentCollaborator.name : 'Unknown User';
         color = collabInfoLoaded ? currentCollaborator.primaryColor : "";
         awards = collabAwardsLoaded ? currentCollaborator.awards.awardList : [];
-        cards.push(<CollabCard key={i} numTracksAdded={currentCollaborator.getNumTracks()}
+        cards.push(<CollabCard key={"card"+id} id={id} numTracksAdded={currentCollaborator.getNumTracks()}
                                img={img} name={name} awards={awards} color={color}/>);
       }
     }

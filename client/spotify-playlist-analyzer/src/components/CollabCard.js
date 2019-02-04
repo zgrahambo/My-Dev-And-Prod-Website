@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { toggleActiveCollaborator } from '../actions/individualCollabActions';
 import { Card, Segment, Image, Icon } from 'semantic-ui-react';
 
+
 class CollabCard extends Component {
+  handleClick = () => {
+    this.props.toggleActiveCollaborator(this.props.id);
+  }
+
   render() {
     const awardsArray = this.props.awards;
     const color = this.props.color;
-    const border = (color !== "" ? "1px " + color + " solid" : "");
+    const border = (color && this.props.active ? "1px " + color + " solid" : "1px grey solid");
     let awards = [];
     for (let i = 0; i <awardsArray.length; i++) {
       awards.push(<p key={awardsArray[i].icon}>
@@ -15,7 +22,7 @@ class CollabCard extends Component {
     }
 
     return (
-      <Card link style={{border: border}}>
+      <Card link onClick={this.handleClick} style={{border: border}}>
         <Segment style={{marginBottom: 0}} basic>
           <Image width='200' height='200' circular src={this.props.img} wrapped/>
         </Segment>
@@ -31,4 +38,8 @@ class CollabCard extends Component {
   }
 }
 
-export default CollabCard;
+const mapStateToProps = (state, props) => ({
+  active: state.activeCollab.activeCollaborators[props.id]
+});
+
+export default connect(mapStateToProps, { toggleActiveCollaborator }) (CollabCard);

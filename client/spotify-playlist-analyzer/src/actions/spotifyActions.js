@@ -8,7 +8,8 @@ import {
   FETCH_COLLABORATOR_INFO_SUCCESS,
   FETCH_COLLABORATOR_INFO_FAILURE,
   FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
-  FETCH_COLLABORATOR_AF_AWARDS_FAILURE } from './types';
+  FETCH_COLLABORATOR_AF_AWARDS_FAILURE,
+  ACTIVATE_COLLABORATORS } from './types';
 import { generateCollaboratorObjects, getCollaboratorData, getCollabAwards } from '../spotify/Collaborator';
 import fetch from "node-fetch";
 
@@ -53,6 +54,14 @@ export function fetchPlaylistInfo(token, playlistInfo) {
         dispatch({
           type: FETCH_TRACKS_INFO_SUCCESS,
           payload: collaborators
+        });
+        
+        dispatch({
+          type: ACTIVATE_COLLABORATORS,
+          payload: Object.keys(collaborators).reduce((obj, currentValue) => {
+                     obj[currentValue] = true;
+                     return obj;
+                   }, {})
         });
         return collaborators;
       })

@@ -1,8 +1,9 @@
 import {
-  ACTIVATE_COLLABORATORS } from '../actions/types';
+  ACTIVATE_COLLABORATORS,
+  TOGGLE_COLLABORATOR_CARD } from '../actions/types';
 
 const initialState = {
-  activeCollaborators = {}
+  activeCollaborators: {}
 };
 
 export default function(state=initialState, action) {
@@ -12,6 +13,15 @@ export default function(state=initialState, action) {
         ...state,
         activeCollaborators: action.payload
       };
+    case TOGGLE_COLLABORATOR_CARD:
+      let collabStates = Object.assign({}, state.activeCollaborators);
+      collabStates[action.payload] = !collabStates[action.payload];
+      return {
+        ...state,
+        activeCollaborators: {
+          ...collabStates
+        }
+      }
     default:
       return state;
   }
