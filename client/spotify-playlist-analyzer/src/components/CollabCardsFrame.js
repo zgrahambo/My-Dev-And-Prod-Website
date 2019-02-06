@@ -32,8 +32,6 @@ class CollabCardsFrame extends Component {
     const name = this.props.playlistName;
     const cards = this.createCards();
     const collaborators = this.props.collaborators;
-    console.log("rEnDeRiNg CollabCardsFrame");
-    console.log(collaborators);
 
     const maxPerRow = 5;
     const numCardsPerRow = Object.keys(collaborators).length % (maxPerRow+1);

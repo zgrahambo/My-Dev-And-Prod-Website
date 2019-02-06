@@ -29,7 +29,6 @@ class PlaylistPicker extends Component {
   }
 
   render() {
-    console.log("RENDERING PlaylistPicker");
     const error = this.props.error;
     if (error) {
       return <Error msg={error.msg} link={error.link} linkText={error.linkText}/>;

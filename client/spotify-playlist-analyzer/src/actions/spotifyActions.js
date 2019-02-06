@@ -109,7 +109,6 @@ function createCollabCards(token, dispatch) {
     });
   getCollabAwards(token)
     .then(collabData => {
-      console.log("gotcollabawards: ", collabData);
       dispatch({
         type: FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
         payload: collabData

@@ -142,7 +142,6 @@ export function getCollabAwards(token) {
   return Promise.all(promises)
     .then(res=>{
       let promises = [];
-      console.log(collabIdToCollabObj);
       res.forEach((audioFeature) => {
         promises.push(audioFeature.json());
       });

@@ -29,7 +29,6 @@ class CollabChart extends Component {
   }
 
   render() {
-    console.log("CollabChart.js ", this.props.collaborators);
     const datasets = this.getDatasets();
     const options = {
       scale: {
@@ -39,7 +38,6 @@ class CollabChart extends Component {
         }
       }
     }
-    console.log(datasets);
     const data = {
       labels: ["Acousticness", "Danceability", "Energy", "Instrumentalness", "Speechiness", "Valence"],
       datasets: datasets
