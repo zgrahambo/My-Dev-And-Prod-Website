@@ -6,7 +6,10 @@ import {
 const initialState = {
   loading: false,
   error: null,
-  collaborators: {},
+  collaboratorsModel: {
+    collaborators: {},
+    order: []
+  },
   collabInfoLoaded: false,
   collabAwardsLoaded: false
 };
@@ -16,18 +19,33 @@ export default function(state=initialState, action) {
     case FETCH_TRACKS_INFO_SUCCESS:
       return {
         ...state,
-        collaborators: action.payload
+        collaboratorsModel: {
+          collaborators: {
+            ...action.payload.collaborators
+          },
+          order: action.payload.order
+        }
       };
     case FETCH_COLLABORATOR_INFO_SUCCESS:
       return {
         ...state,
-        collaborators: action.payload,
+        collaboratorsModel: {
+          collaborators: {
+            ...action.payload
+          },
+          order: state.collaboratorsModel.order
+        },
         collabInfoLoaded: true
       };
     case FETCH_COLLABORATOR_AF_AWARDS_SUCCESS:
       return {
         ...state,
-        collaborators: action.payload,
+        collaboratorsModel: {
+          collaborators: {
+            ...action.payload
+          },
+          order: state.collaboratorsModel.order
+        },
         collabAwardsLoaded: true
       };
     default:

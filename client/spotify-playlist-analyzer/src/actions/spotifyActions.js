@@ -50,10 +50,12 @@ export function fetchPlaylistInfo(token, playlistInfo) {
     });
     fetchPlaylistTracksInfo(token, playlistInfo.tracks.href, dispatch)
       .then(tracks => generateCollaboratorObjects(tracks))
-      .then(collaborators => {
+      .then((collaboratorsObject) => {
+        const collaborators = collaboratorsObject.collaborators;
         dispatch({
           type: FETCH_TRACKS_INFO_SUCCESS,
-          payload: collaborators
+          payload: { collaborators: collaborators,
+                     order: collaboratorsObject.order }
         });
         
         dispatch({

@@ -12,7 +12,7 @@ class CollabCard extends Component {
   render() {
     const awardsArray = this.props.awards;
     const color = this.props.color;
-    const border = (color && this.props.active ? "1px " + color + " solid" : "1px grey solid");
+    const border = (color && this.props.active ? "2px " + color + " solid" : "1px grey solid");
     let awards = [];
     for (let i = 0; i <awardsArray.length; i++) {
       awards.push(<p key={awardsArray[i].icon}>

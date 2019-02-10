@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Header, CardGroup } from 'semantic-ui-react'
+import { Header, CardGroup } from 'semantic-ui-react';
 import Error from './error-handling/Error';
 import CollabCard from './CollabCard';
 import defaultProfilePic from '../img/defaultProfilePic.png';
@@ -10,12 +10,14 @@ class CollabCardsFrame extends Component {
 
   createCards() {
     let cards = [];
-    if (!this.props.loading) {
-      const collaborators = this.props.collaborators,
+    if (!this.props.loading) {  
+      const collaboratorsModel = this.props.collaboratorsModel;
+      const collaborators = collaboratorsModel.collaborators,
         collabInfoLoaded = this.props.collabInfoLoaded,
         collabAwardsLoaded = this.props.collabAwardsLoaded;
       let currentCollaborator, img, name, color, awards;
-      for (let id in collaborators) {
+
+      collaboratorsModel.order.forEach((id) => {
         currentCollaborator = collaborators[id]; 
         img = collabInfoLoaded ? currentCollaborator.img : defaultProfilePic;
         name = collabInfoLoaded ? currentCollaborator.name : 'Unknown User';
@@ -23,7 +25,7 @@ class CollabCardsFrame extends Component {
         awards = collabAwardsLoaded ? currentCollaborator.awards.awardList : [];
         cards.push(<CollabCard key={"card"+id} id={id} numTracksAdded={currentCollaborator.getNumTracks()}
                                img={img} name={name} awards={awards} color={color}/>);
-      }
+      });
     }
     return cards;
   }
@@ -31,10 +33,10 @@ class CollabCardsFrame extends Component {
   render() {
     const name = this.props.playlistName;
     const cards = this.createCards();
-    const collaborators = this.props.collaborators;
+    const numOfCollaborators = this.props.collaboratorsModel.order.length;
 
     const maxPerRow = 5;
-    const numCardsPerRow = Object.keys(collaborators).length % (maxPerRow+1);
+    const numCardsPerRow = numOfCollaborators % (maxPerRow+1);
     if (this.props.error) {
       return <Error msg={this.props.error.msg} />;
     }
@@ -52,7 +54,7 @@ const mapStateToProps = state => ({
   playlistName: state.playlistInfo.playlistName,
   loading: state.playlistInfo.loading,
   error: state.playlistInfo.error,
-  collaborators: state.collabInfo.collaborators,
+  collaboratorsModel: state.collabInfo.collaboratorsModel,
   collabInfoLoaded: state.collabInfo.collabInfoLoaded,
   collabAwardsLoaded: state.collabInfo.collabAwardsLoaded
 });

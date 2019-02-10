@@ -4,13 +4,16 @@ import { awards, PersonalAwards } from './PersonalAwards'
 
 let trackIdToCollabId = {};
 let collabIdToCollabObj = {};
-let primaryColors = ["red", "blue", "yellow", "green", "orange", "purple", "hotpink", "aqua"];
-let secondaryColors = ["rgb(255, 0, 0, 0.2)", "rgb(0, 0, 255, 0.2)", "rgb(255, 255, 0, 0.2)",
+let orderOfCollaborators = [];
+
+const primaryColors = ["red", "blue", "yellow", "green", "orange", "purple", "hotpink", "aqua"];
+const secondaryColors = ["rgb(255, 0, 0, 0.2)", "rgb(0, 0, 255, 0.2)", "rgb(255, 255, 0, 0.2)",
                        "rgb(0, 128, 0, 0.2)", "rgb(255, 165, 0, 0.2)", "rgb(128, 0, 128, 0.2)",
                        "rgb(255, 105, 180, 0.2)", "rgb(0, 255, 255, 0.2)"];
 export class Collaborator {
   constructor(id, trackIds=[]){
     this.id = id;
+    orderOfCollaborators.push(id);
     collabIdToCollabObj[id] = this;
     this.trackIds = trackIds;
     this.img = null;
@@ -95,7 +98,7 @@ export function generateCollaboratorObjects(tracks) {
     collaborators[currentCollaboratorId].score.increaseDuration(track.track.duration_ms);
   });
 
-  return collaborators;
+  return {collaborators: collaborators, order: orderOfCollaborators};
 }
 
 export function getCollaboratorData(token) {

@@ -1,15 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { toggleActiveCollaborator } from '../actions/individualCollabActions';
+
 import { Grid } from 'semantic-ui-react';
 import { Radar } from 'react-chartjs-2';
 
 class CollabChart extends Component {
+  constructor(props) {
+    super(props);
+    this.labels = ["Acousticness", "Danceability", "Energy", "Instrumentalness", "Speechiness", "Valence"];
+    this.options = {
+      scale: {
+        ticks: {
+            beginAtZero: true,
+            max: 1
+        }
+      },
+      legend: {
+        onClick: this.legendClickHandler
+      }
+    }
+  }
+  legendClickHandler = (clickEvent, legendClicked) => {
+    this.props.toggleActiveCollaborator(
+      this.props.collaboratorsModel.order[legendClicked.datasetIndex]
+    );
+  }
   getDatasets = () => {
-    const collaborators = this.props.collaborators;
+    const collaboratorsModel = this.props.collaboratorsModel;
+    const collaborators = collaboratorsModel.collaborators;
     let datasets = [];
-    for(let collab in collaborators) {
-      const collaborator = collaborators[collab];
+    collaboratorsModel.order.forEach((collabID) => {
+      const collaborator = collaborators[collabID];
       const avgs = collaborator.score.getAverages();
       let dataset = {
         "label": collaborator.name,
@@ -21,32 +44,25 @@ class CollabChart extends Component {
         "pointBackgroundColor": collaborator.primaryColor,
         "pointBorderColor": "#fff",
         "pointHoverBackgroundColor": "#fff",
-        "pointHoverBorderColor": collaborator.primaryColor
+        "pointHoverBorderColor": collaborator.primaryColor,
+        "hidden": !this.props.active[collabID]
       };
-      datasets.push(dataset)
-    }
+      datasets.push(dataset);
+    });
+    
     return datasets;
   }
 
   render() {
-    const datasets = this.getDatasets();
-    const options = {
-      scale: {
-        ticks: {
-            beginAtZero: true,
-            max: 1
-        }
-      }
-    }
     const data = {
-      labels: ["Acousticness", "Danceability", "Energy", "Instrumentalness", "Speechiness", "Valence"],
-      datasets: datasets
+      labels: this.labels,
+      datasets: this.getDatasets()
     };
     return (this.props.collabAwardsLoaded && 
       <Grid centered>
         <Grid.Column width={10}>
           <Radar data={data}
-                  options={options}
+                  options={this.options}
                   width={50} 
                   height={50} />
         </Grid.Column>
@@ -55,9 +71,10 @@ class CollabChart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  collaborators: state.collabInfo.collaborators,
+  collaboratorsModel: state.collabInfo.collaboratorsModel,
   collabInfoLoaded: state.collabInfo.collabInfoLoaded,
-  collabAwardsLoaded: state.collabInfo.collabAwardsLoaded
+  collabAwardsLoaded: state.collabInfo.collabAwardsLoaded,
+  active: state.activeCollab.activeCollaborators
 });
 
-export default connect(mapStateToProps, {}) (CollabChart);
+export default connect(mapStateToProps, { toggleActiveCollaborator }) (CollabChart);
