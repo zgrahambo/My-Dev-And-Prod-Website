@@ -13,7 +13,7 @@ class CollabCard extends Component {
   render() {
     const awardsArray = this.props.awards;
     const color = this.props.color;
-    const borderColor = color && this.props.active ? color : "grey"; //(color && this.props.active ? "2px " + color + " solid" : "2px grey solid");
+    const cardColor = color && this.props.active ? color : "grey";
     let awards = [];
     for (let i = 0; i <awardsArray.length; i++) {
       awards.push(<p key={awardsArray[i].icon}>
@@ -23,9 +23,9 @@ class CollabCard extends Component {
     }
 
     return (
-      <Card link className={ccStyle.card_border} style={{borderColor: borderColor}} onClick={this.handleClick}>
+      <Card link className={ccStyle.card_border} style={{borderColor: cardColor}} onClick={this.handleClick}>
         <Segment style={{marginBottom: 0}} basic>
-          <Image className={ccStyle.center_img} width='200' height='200' circular src={this.props.img} wrapped/>
+          <Image className={ccStyle.center_img} style={{borderColor: cardColor}} width='200' height='200' circular src={this.props.img} wrapped/>
         </Segment>
         <Card.Content>
           <Card.Header>{ this.props.name }</Card.Header>
