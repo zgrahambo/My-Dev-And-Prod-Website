@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Header, CardGroup } from 'semantic-ui-react';
-import Error from './error-handling/Error';
-import CollabCard from './CollabCard';
-import defaultProfilePic from '../img/defaultProfilePic.png';
+import Error from '../error-handling/Error';
+import CollabCard from '../CollabCard/CollabCard';
+import defaultProfilePic from '../../img/defaultProfilePic.png';
 
 class CollabCardsFrame extends Component {
 
@@ -35,15 +35,14 @@ class CollabCardsFrame extends Component {
     const cards = this.createCards();
     const numOfCollaborators = this.props.collaboratorsModel.order.length;
 
-    const maxPerRow = 5;
-    const numCardsPerRow = numOfCollaborators % (maxPerRow+1);
+    const numCardsPerRow = 5;
     if (this.props.error) {
-      return <Error msg={this.props.error.msg} />;
+      return <Error msg={this.props.error} />;
     }
     return (
       <div>
         <Header textAlign="center" as="h2">{name ? "Analyzing Playlist: \"" +  name + "\"": ''}</Header>
-        <CardGroup itemsPerRow={numCardsPerRow > 0 ? numCardsPerRow : 1}>
+        <CardGroup centered itemsPerRow={numCardsPerRow}>
           { cards }
         </CardGroup>
       </div>

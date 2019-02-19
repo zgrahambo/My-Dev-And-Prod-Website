@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { toggleActiveCollaborator } from '../actions/individualCollabActions';
+import { toggleActiveCollaborator } from '../../actions/individualCollabActions';
 
 import { Grid } from 'semantic-ui-react';
 import { Radar } from 'react-chartjs-2';

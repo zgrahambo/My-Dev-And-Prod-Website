@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleActiveCollaborator } from '../actions/individualCollabActions';
-import { Card, Segment, Image, Icon } from 'semantic-ui-react';
+import { toggleActiveCollaborator } from '../../actions/individualCollabActions';
 
+import { Card, Segment, Image, Icon } from 'semantic-ui-react';
+import ccStyle from './CollabCard.module.scss';
 
 class CollabCard extends Component {
   handleClick = () => {
@@ -12,7 +13,7 @@ class CollabCard extends Component {
   render() {
     const awardsArray = this.props.awards;
     const color = this.props.color;
-    const border = (color && this.props.active ? "2px " + color + " solid" : "1px grey solid");
+    const borderColor = color && this.props.active ? color : "grey"; //(color && this.props.active ? "2px " + color + " solid" : "2px grey solid");
     let awards = [];
     for (let i = 0; i <awardsArray.length; i++) {
       awards.push(<p key={awardsArray[i].icon}>
@@ -22,9 +23,9 @@ class CollabCard extends Component {
     }
 
     return (
-      <Card link onClick={this.handleClick} style={{border: border}}>
+      <Card link className={ccStyle.card_border} style={{borderColor: borderColor}} onClick={this.handleClick}>
         <Segment style={{marginBottom: 0}} basic>
-          <Image width='200' height='200' circular src={this.props.img} wrapped/>
+          <Image className={ccStyle.center_img} width='200' height='200' circular src={this.props.img} wrapped/>
         </Segment>
         <Card.Content>
           <Card.Header>{ this.props.name }</Card.Header>

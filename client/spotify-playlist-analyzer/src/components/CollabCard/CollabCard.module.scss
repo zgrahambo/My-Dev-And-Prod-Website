@@ -1,0 +1,13 @@
+.center_img {
+  min-width: 100%;
+  border: 2px solid;
+  > img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.card_border {
+  border-width: 2px !important;
+  border-style: solid !important;
+}

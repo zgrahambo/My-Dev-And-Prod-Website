@@ -2,14 +2,17 @@ import fetch from "node-fetch";
 import Score from './Score'
 import { awards, PersonalAwards } from './PersonalAwards'
 
-let trackIdToCollabId = {};
-let collabIdToCollabObj = {};
-let orderOfCollaborators = [];
+// static vars:
+let trackIdToCollabId = {}; 
+let collabIdToCollabObj = {}; // main collaborators object
+let orderOfCollaborators = []; // set order in which collaborators are displayed
 
+// static constants:
 const primaryColors = ["red", "blue", "yellow", "green", "orange", "purple", "hotpink", "aqua"];
 const secondaryColors = ["rgb(255, 0, 0, 0.2)", "rgb(0, 0, 255, 0.2)", "rgb(255, 255, 0, 0.2)",
                        "rgb(0, 128, 0, 0.2)", "rgb(255, 165, 0, 0.2)", "rgb(128, 0, 128, 0.2)",
                        "rgb(255, 105, 180, 0.2)", "rgb(0, 255, 255, 0.2)"];
+
 export class Collaborator {
   constructor(id, trackIds=[]){
     this.id = id;
@@ -45,7 +48,7 @@ function collectCollabNameAndImg(collabData) {
   collabIdToCollabObj[collabData.id].setName(collabData.display_name);
 }
 
-function collectAllUsersAFScores(audioFeaturesArray) {
+export function collectAllUsersAFScores(audioFeaturesArray) {
   let currentCollaborator;
   audioFeaturesArray.forEach((audioFeature) => {
     currentCollaborator = collabIdToCollabObj[trackIdToCollabId[audioFeature.id]];
@@ -60,7 +63,7 @@ function collectAllUsersAFScores(audioFeaturesArray) {
   });
 }
 
-function chooseEachCollabsAwards() {
+export function chooseEachCollabsAwards() {
   let collaborator, n, averages;
   for (let collaboratorID in collabIdToCollabObj) {
     collaborator = collabIdToCollabObj[collaboratorID];
@@ -82,7 +85,7 @@ function chooseEachCollabsAwards() {
       collabIdToCollabObj[awards[award].id].awards.addAward(awards[award]);
   }
 
-  return awards;
+  return collabIdToCollabObj;
 }
 
 export function generateCollaboratorObjects(tracks) {
@@ -90,14 +93,13 @@ export function generateCollaboratorObjects(tracks) {
   tracks.forEach((track) => {
     currentCollaboratorId = track.added_by.id;
 
-    if (!collaborators[currentCollaboratorId])
+    if (!collaborators[currentCollaboratorId]) {
       collaborators[currentCollaboratorId] = new Collaborator(currentCollaboratorId);
-
+    }
     collaborators[currentCollaboratorId].addTrackId(track.track.id);
     collaborators[currentCollaboratorId].score.increasePopularity(track.track.popularity);
     collaborators[currentCollaboratorId].score.increaseDuration(track.track.duration_ms);
   });
-
   return {collaborators: collaborators, order: orderOfCollaborators};
 }
 
@@ -128,37 +130,28 @@ export function getCollaboratorData(token) {
     });
 }
 
-export function getCollabAwards(token) {
+export function fetchAudioFeatures(token) {
   //TODO:  to support having collaborators having more than 100 songs I need
   // to loop through collaborator.trackIds one hundred at a time (since thats the max)
   // per request..
-  let promises = [], stringTrackIds;
+  const maxTracksPerCall = 100; // this is Spotify API's constant
+  let promises = [], stringTrackIds, numCallsForThisCollaborator, trackIds;
 
   for (let collaboratorID in collabIdToCollabObj) {
-    stringTrackIds = collabIdToCollabObj[collaboratorID].trackIds.join();
-    promises.push(fetch('https://api.spotify.com/v1/audio-features/?ids=' + stringTrackIds, {
-      method: 'GET',
-      headers: {'Authorization': 'Bearer ' + token}
-    }));
+    trackIds = collabIdToCollabObj[collaboratorID].trackIds;
+    numCallsForThisCollaborator = Math.ceil(trackIds.length / maxTracksPerCall);
+    for (let i = 0; i < numCallsForThisCollaborator; i++) {
+      stringTrackIds = trackIds.slice(0, maxTracksPerCall).join();
+      promises.push(fetch('https://api.spotify.com/v1/audio-features/?ids=' + stringTrackIds, {
+        method: 'GET',
+        headers: {'Authorization': 'Bearer ' + token}
+      }));
+    }
   }
 
-  return Promise.all(promises)
-    .then(res=>{
-      let promises = [];
-      res.forEach((audioFeature) => {
-        promises.push(audioFeature.json());
-      });
+  return Promise.all(promises);
+}
 
-      return Promise.all(promises)
-        .then(res => {
-          res.forEach((audioFeatures) => {
-            collectAllUsersAFScores(audioFeatures.audio_features);
-          });
-        });
-    })
-    .then(()=>{
-      // Choose the awards
-      chooseEachCollabsAwards();
-      return collabIdToCollabObj;
-    })
+export function getCollaboratorObjects() {
+  return collabIdToCollabObj;
 }

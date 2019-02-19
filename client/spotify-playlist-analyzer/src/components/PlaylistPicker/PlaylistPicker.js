@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPlaylists, fetchPlaylistInfo } from '../actions/spotifyActions';
+import { fetchPlaylists, fetchPlaylistInfo } from '../../actions/spotifyActions';
 
 import { Header, Grid, Menu, Image } from 'semantic-ui-react';
-import Error from './error-handling/Error';
-import loading_gif from '../img/loading.gif';
+import Error from '../error-handling/Error';
+import loading_gif from '../../img/loading.gif';
 
 class PlaylistPicker extends Component {
   constructor(props) {

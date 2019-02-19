@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
-import { Container, Header, Divider } from 'semantic-ui-react'
-import PlaylistPicker from './components/PlaylistPicker'
-import CollabCardsFrame from './components/CollabCardsFrame';
-import CollabChart from './components/CollabChart';
+import { Container, Header } from 'semantic-ui-react'
+import PlaylistPicker from './components/PlaylistPicker/PlaylistPicker'
+import CollabCardsFrame from './components/CollabCardsFrame/CollabCardsFrame';
+import CollabChart from './components/CollabChart/CollabChart';
 import ErrorBoundary from './components/error-handling/ErrorBoundary';
 
 import { Provider } from 'react-redux';
 import store from './store';
 
 class PlaylistAnalyzerApp extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   getAccessToken() {
     const hash = window.location.hash.substr(1);
     const result = hash.split('&').reduce(function (result, item) {

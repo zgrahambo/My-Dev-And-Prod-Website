@@ -10,7 +10,13 @@ import {
   FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
   FETCH_COLLABORATOR_AF_AWARDS_FAILURE,
   ACTIVATE_COLLABORATORS } from './types';
-import { generateCollaboratorObjects, getCollaboratorData, getCollabAwards } from '../spotify/Collaborator';
+import { 
+  generateCollaboratorObjects, 
+  getCollaboratorData, 
+  fetchAudioFeatures, 
+  getCollaboratorObjects, 
+  chooseEachCollabsAwards, 
+  collectAllUsersAFScores } from '../spotify/Collaborator';
 import fetch from "node-fetch";
 
 /* fetchPlaylists is a function that takes in */
@@ -49,48 +55,51 @@ export function fetchPlaylistInfo(token, playlistInfo) {
       payload: playlistInfo.name
     });
     fetchPlaylistTracksInfo(token, playlistInfo.tracks.href, dispatch)
-      .then(tracks => generateCollaboratorObjects(tracks))
-      .then((collaboratorsObject) => {
-        const collaborators = collaboratorsObject.collaborators;
-        dispatch({
-          type: FETCH_TRACKS_INFO_SUCCESS,
-          payload: { collaborators: collaborators,
-                     order: collaboratorsObject.order }
-        });
-        
-        dispatch({
-          type: ACTIVATE_COLLABORATORS,
-          payload: Object.keys(collaborators).reduce((obj, currentValue) => {
-                     obj[currentValue] = true;
-                     return obj;
-                   }, {})
-        });
-        return collaborators;
-      })
-      .then(collaborators => {
-        createCollabCards(token, dispatch, collaborators);
+    .then(tracks => generateCollaboratorObjects(tracks))
+    .then((collaboratorsObject) => {
+      const collaborators = collaboratorsObject.collaborators;
+      dispatch({
+        type: FETCH_TRACKS_INFO_SUCCESS,
+        payload: { collaborators: collaborators,
+                    order: collaboratorsObject.order }
       });
+      
+      dispatch({
+        type: ACTIVATE_COLLABORATORS,
+        payload: Object.keys(collaborators).reduce((obj, currentValue) => {
+                    obj[currentValue] = true;
+                    return obj;
+                  }, {})
+      });
+      return collaborators;
+    })
+    .then(collaborators => {
+      createCollabCards(token, dispatch, collaborators);
+    })
+    // .catch(err => dispatch({
+    //   type: FETCH_TRACKS_INFO_FAILURE,
+    //   payload: err
+    // }));
   }
 }
 
 async function fetchPlaylistTracksInfo(token, tracksLink, dispatch) {
-  let hasNext = true, tracks=[];
+  let tracks=[];
 
-  while (hasNext) {
-    hasNext = await fetch(tracksLink, {
+  while (tracksLink) {
+    tracksLink = await fetch(tracksLink, {
       method: 'GET',
       headers: {'Authorization': 'Bearer ' + token}
     })
-      .then(res => res.json())
-      .then(data => {
-        tracks = tracks.concat(data.items);
-        tracksLink = data.next;
-        return !!tracksLink;
-      })
-      .catch(err => dispatch({
-        type: FETCH_TRACKS_INFO_FAILURE,
-        payload: err
-      }));
+    .then(res => res.json())
+    .then(data => {
+      tracks.push(...data.items);
+      return data.next;
+    })
+    .catch(err => dispatch({
+      type: FETCH_TRACKS_INFO_FAILURE,
+      payload: err
+    }));
   }
   return tracks;
 }
@@ -109,7 +118,24 @@ function createCollabCards(token, dispatch) {
         payload: err
       })
     });
-  getCollabAwards(token)
+  fetchAudioFeatures(token)
+    .then(res => {  // format to json
+      let promises = [];
+      res.forEach((audioFeature) => {
+        promises.push(audioFeature.json());
+      });
+      return Promise.all(promises);
+    })
+    .then(res => { // distribute audio_feature scores to corresponding collaborators
+      res.forEach((audioFeatures) => {
+        collectAllUsersAFScores(audioFeatures.audio_features);
+      });
+    })
+    .then(()=>{
+      // Assign the awards and get the newly updated collaborator objects
+      chooseEachCollabsAwards();
+      return getCollaboratorObjects();
+    })
     .then(collabData => {
       dispatch({
         type: FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
