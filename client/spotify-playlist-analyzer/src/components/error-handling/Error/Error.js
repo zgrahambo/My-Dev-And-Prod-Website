@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
 
+import errStyle from './Error.module.scss';
+
 const windowLoc = window.location;
 const spaUrl = windowLoc.protocol + '//' + 
                windowLoc.host +
@@ -14,7 +16,7 @@ class Error extends Component {
         <Grid.Column>
         <Segment inverted color='red' secondary>
           {this.props.msg}
-          <p><a href={this.props.link ? this.props.link : spaUrl} style={{color: "#030069", textDecoration: "underline"}}>{this.props.linkText}</a></p>
+          <p><a className={errStyle['error-link']} href={this.props.link ? this.props.link : spaUrl}>{this.props.linkText}</a></p>
         </Segment>
         </Grid.Column>
       </Grid>

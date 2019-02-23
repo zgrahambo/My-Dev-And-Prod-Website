@@ -20,7 +20,7 @@ class CollabChart extends Component {
       legend: {
         onClick: this.legendClickHandler
       }
-    }
+    };
   }
   legendClickHandler = (clickEvent, legendClicked) => {
     this.props.toggleActiveCollaborator(
