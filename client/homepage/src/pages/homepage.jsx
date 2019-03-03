@@ -26,7 +26,7 @@ class Homepage extends Component {
           <Infoblock href="javascript:void(0)" qckDesc="Home" iconClass="home" infoText="Santa Clara, CA" />
           <Infoblock target="_blank" href="documents/Zachary_Graham_Resume.pdf" qckDesc="My Resume" iconClass="file pdf outline" infoText="Resume" />
           <Infoblock target="_blank" href="https://www.ebay.com" qckDesc="My Workplace" iconClass="suitcase" infoText="eBay" />
-          <Infoblock href="/spa" qckDesc="Spotify Collaborative Playlist Analyzer" iconClass="spotify" infoText="Spotify Collab-Playlist Analyzer" />
+          <Infoblock href="/spa" qckDesc="Spotify Playlist Analyzer" iconClass="spotify" infoText="Spotify Playlist Analyzer" />
         </InfoblocksFrame>
       </Container>
     );

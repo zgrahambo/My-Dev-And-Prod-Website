@@ -5,7 +5,6 @@ import { Header, Grid, Button, Icon, Menu } from 'semantic-ui-react';
 import headerStyle from './AnalyzerHeader.module.scss'
 
 import { fetchPlaylists, fetchPlaylistInfo } from '../../actions/spotifyActions';
-import Error from '../error-handling/Error/Error';
 
 class AnalyzerHeader extends Component {
   handleClick(e, playlistInfo) {
@@ -37,11 +36,4 @@ class AnalyzerHeader extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  playlists: state.playlists.playlists,
-  loading: state.playlists.loading,
-  error: state.playlists.error,
-  playlistChosen: state.playlistInfo.playlistChosen
-});
-
-export default connect(mapStateToProps, { fetchPlaylists, choosePlaylist: fetchPlaylistInfo })(AnalyzerHeader);
+export default connect(null, { fetchPlaylists, choosePlaylist: fetchPlaylistInfo })(AnalyzerHeader);
