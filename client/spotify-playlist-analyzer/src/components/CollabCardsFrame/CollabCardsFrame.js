@@ -33,7 +33,7 @@ class CollabCardsFrame extends Component {
   render() {
     const name = this.props.playlistName;
     const cards = this.createCards();
-    const numOfCollaborators = this.props.collaboratorsModel.order.length;
+    // const numOfCollaborators = this.props.collaboratorsModel.order.length;
 
     const numCardsPerRow = 5;
     if (this.props.error) {

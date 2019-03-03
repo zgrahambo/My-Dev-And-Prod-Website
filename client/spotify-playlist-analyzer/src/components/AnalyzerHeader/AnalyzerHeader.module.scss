@@ -1,0 +1,14 @@
+@import '../../style-basics/core-styles.scss';
+
+.appHeader.appHeader {
+  position: fixed;
+  z-index: 999;
+  min-width: $min-app-width;
+}
+
+button.chooseDiffPlaylist.chooseDiffPlaylist {
+  background-color: $spotify-green;
+  &:hover {
+    background-color: $spotify-dark-green;
+  }
+}

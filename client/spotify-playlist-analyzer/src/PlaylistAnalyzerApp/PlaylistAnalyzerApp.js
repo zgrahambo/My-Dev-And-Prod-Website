@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { Container, Header } from 'semantic-ui-react'
-import PlaylistPicker from './components/PlaylistPicker/PlaylistPicker'
-import CollabCardsFrame from './components/CollabCardsFrame/CollabCardsFrame';
-import CollabChart from './components/CollabChart/CollabChart';
-import ErrorBoundary from './components/error-handling/ErrorBoundary';
+import { Container } from 'semantic-ui-react';
+
+import appStyle from './PlaylistAnalyzerApp.module.scss';
+
+import AnalyzerHeader from '../components/AnalyzerHeader/AnalyzerHeader';
+import PlaylistPicker from '../components/PlaylistPicker/PlaylistPicker';
+import CollabCardsFrame from '../components/CollabCardsFrame/CollabCardsFrame';
+import CollabChart from '../components/CollabChart/CollabChart';
+import ErrorBoundary from '../components/error-handling/ErrorBoundary';
 
 import { Provider } from 'react-redux';
-import store from './store';
+import store from '../store';
 
 class PlaylistAnalyzerApp extends Component {
   getAccessToken() {
@@ -40,11 +44,10 @@ class PlaylistAnalyzerApp extends Component {
     else {
       return (
         <Provider store={store}>
-          <Container>
-            <br/>
-            <Header textAlign="center" as="h1">
-              Spotify Collaborative Playlist Analyzer
-            </Header>
+          <AnalyzerHeader>
+              Spotify Playlist Analyzer
+          </AnalyzerHeader>
+          <Container className={appStyle.container} >
             <ErrorBoundary>
               <PlaylistPicker token={ accessToken } />
               <CollabCardsFrame token={ accessToken } />
