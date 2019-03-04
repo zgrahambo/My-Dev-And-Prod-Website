@@ -27,7 +27,7 @@ class AnalyzerHeader extends Component {
           </Menu.Item>
           <Menu.Item>
             <Grid.Column width={3}>
-              <Button>Show Me a Sample Playlist</Button>
+              <Button>Homepage</Button>
             </Grid.Column>
           </Menu.Item>
         </Menu.Menu>
