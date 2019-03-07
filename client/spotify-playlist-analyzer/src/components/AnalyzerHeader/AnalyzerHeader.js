@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { homeUrl } from '../../util/site';
 import { Header, Grid, Button, Icon, Menu } from 'semantic-ui-react';
 import headerStyle from './AnalyzerHeader.module.scss'
 
@@ -27,7 +27,7 @@ class AnalyzerHeader extends Component {
           </Menu.Item>
           <Menu.Item>
             <Grid.Column width={3}>
-              <Button>Homepage</Button>
+              <Button href={homeUrl}>Homepage</Button>
             </Grid.Column>
           </Menu.Item>
         </Menu.Menu>

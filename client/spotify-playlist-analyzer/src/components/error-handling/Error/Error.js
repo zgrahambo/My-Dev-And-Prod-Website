@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+
+import { spaUrl } from '../../../util/site';
 import { Grid, Segment } from 'semantic-ui-react';
 
 import errStyle from './Error.module.scss';
-
-const windowLoc = window.location;
-const spaUrl = windowLoc.protocol + '//' + 
-               windowLoc.host +
-               windowLoc.pathname;
 
 class Error extends Component {
 
