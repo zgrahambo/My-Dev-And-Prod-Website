@@ -1,6 +1,6 @@
 @import '../style-basics/core-styles.scss';
 
 .container.container {
-  padding-top: 78px;
+  padding-top: $main-content-y-offset;
   min-width: $min-app-width;
 }

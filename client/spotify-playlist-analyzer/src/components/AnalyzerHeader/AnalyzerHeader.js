@@ -12,7 +12,7 @@ class AnalyzerHeader extends Component {
 
   render() {
     return (
-      <Menu className={headerStyle.appHeader} fluid>
+      <Menu className={headerStyle['no-box-shadow']} fixed="top">
         <Menu.Item>
           <Header as="h1">
             { this.props.children }
