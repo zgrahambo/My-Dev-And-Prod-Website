@@ -19,12 +19,13 @@ class AnalyzerHeader extends Component {
           </Header>
         </Menu.Item>
         <Menu.Menu position="right">
+          {this.props.playlistChosen && 
           <Menu.Item>
             <Button animated="fly left" className={headerStyle.chooseDiffPlaylist}>
               <Button.Content visible>Choose a Different Playlist</Button.Content>
               <Button.Content hidden><Icon name="arrow left"/></Button.Content>
             </Button>
-          </Menu.Item>
+          </Menu.Item>}
           <Menu.Item>
             <Grid.Column width={3}>
               <Button href={homeUrl}>Homepage</Button>
@@ -36,4 +37,8 @@ class AnalyzerHeader extends Component {
   }
 }
 
-export default connect(null, { fetchPlaylists, choosePlaylist: fetchPlaylistInfo })(AnalyzerHeader);
+const mapStateToProps = state => ({
+  playlistChosen: state.playlistInfo.playlistChosen
+});
+
+export default connect(mapStateToProps, { fetchPlaylists, choosePlaylist: fetchPlaylistInfo })(AnalyzerHeader);

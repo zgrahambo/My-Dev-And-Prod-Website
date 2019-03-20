@@ -1,11 +1,13 @@
 import { FETCH_PLAYLISTS_LOADING,
          FETCH_PLAYLISTS_SUCCESS,
-         FETCH_PLAYLISTS_FAILURE } from "../actions/types";
+         FETCH_PLAYLISTS_FAILURE,
+         ACTIVATE_DEMO } from "../actions/types";
 
 const initialState = {
   playlists: [],
   loading: false,
-  error: null
+  error: null,
+  demo: false
 };
 
 export default function(state=initialState, action) {
@@ -28,6 +30,12 @@ export default function(state=initialState, action) {
         error: action.payload,
         playlists: []
       };
+    case ACTIVATE_DEMO:
+      return {
+        ...state,
+        ...initialState,
+        demo: true
+      }
     default:
       return state;
   }

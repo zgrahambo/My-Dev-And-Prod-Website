@@ -2,6 +2,7 @@ import {
   FETCH_PLAYLISTS_LOADING,
   FETCH_PLAYLISTS_SUCCESS,
   FETCH_PLAYLISTS_FAILURE,
+  ACTIVATE_DEMO,
   PLAYLIST_CHOSEN_TRACK_INFO_LOADING,
   FETCH_TRACKS_INFO_FAILURE,
   FETCH_TRACKS_INFO_SUCCESS,
@@ -80,6 +81,14 @@ export function fetchPlaylistInfo(token, playlistInfo) {
     //   type: FETCH_TRACKS_INFO_FAILURE,
     //   payload: err
     // }));
+  }
+}
+
+export function activateDemo() {
+  return (dispatch) => {
+    dispatch({
+      type: ACTIVATE_DEMO
+    })
   }
 }
 
