@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { homeUrl } from '../../util/site';
 import { Header, Grid, Button, Icon, Menu } from 'semantic-ui-react';
 import headerStyle from './AnalyzerHeader.module.scss'
 
-import { fetchPlaylists, fetchPlaylistInfo } from '../../actions/spotifyActions';
+import { chooseNewPlaylist } from '../../actions/spotifyActions';
 
 class AnalyzerHeader extends Component {
-  handleClick(e, playlistInfo) {
+  handleClickChooseNewPlaylist() {
+    this.props.chooseNewPlaylist();
+    this.props.history.push('/spa/choose-playlist');
   }
 
   render() {
@@ -21,7 +24,7 @@ class AnalyzerHeader extends Component {
         <Menu.Menu position="right">
           {this.props.playlistChosen && 
           <Menu.Item>
-            <Button animated="fly left" className={headerStyle.chooseDiffPlaylist}>
+            <Button onClick={() => this.handleClickChooseNewPlaylist()} animated className={headerStyle.chooseDiffPlaylist}>
               <Button.Content visible>Choose a Different Playlist</Button.Content>
               <Button.Content hidden><Icon name="arrow left"/></Button.Content>
             </Button>
@@ -41,4 +44,4 @@ const mapStateToProps = state => ({
   playlistChosen: state.playlistInfo.playlistChosen
 });
 
-export default connect(mapStateToProps, { fetchPlaylists, choosePlaylist: fetchPlaylistInfo })(AnalyzerHeader);
+export default withRouter(connect(mapStateToProps, { chooseNewPlaylist })(AnalyzerHeader));

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Header, CardGroup, Image } from 'semantic-ui-react';
-import Error from '../error-handling/Error/Error';
+import Error from '../../error-handling/Error/Error';
 import CollabCard from '../CollabCard/CollabCard';
 
-import loading_gif from '../../img/loading.gif';
-import defaultProfilePic from '../../img/defaultProfilePic.png';
+import loading_gif from '../../../img/loading.gif';
+import defaultProfilePic from '../../../img/defaultProfilePic.png';
 
 class CollabCardsFrame extends Component {
 

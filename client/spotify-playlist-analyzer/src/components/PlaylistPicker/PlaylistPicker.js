@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPlaylists, fetchPlaylistInfo } from '../../actions/spotifyActions';
-
+import { Redirect } from 'react-router-dom';
 import { Header, Grid, Menu, Image } from 'semantic-ui-react';
+
+import { fetchPlaylists, fetchPlaylistInfo } from '../../actions/spotifyActions';
 import Error from '../error-handling/Error/Error';
 import loading_gif from '../../img/loading.gif';
 
@@ -29,15 +30,18 @@ class PlaylistPicker extends Component {
   }
 
   render() {
+    console.log("PlaylistPicker rendering");
     const error = this.props.error;
     if (error) {
       return <Error msg={error.msg} link={error.link} linkText={error.linkText}/>;
+    }
+    if (this.props.playlistChosen && !this.props.loading) {
+      return <Redirect to='/spa/analyze-playlist' />
     }
 
     let menuItems = this.extractCollabPlaylists(this.props.playlists);
     let loadingSpinner = this.props.loading && <Image src={loading_gif} centered/>;
 
-    // Grid is 16 columns by default.
     return (!this.props.playlistChosen &&
       <div>
         {!this.props.loading && <Header textAlign="center" as="h2"> Choose a playlist:</Header>}

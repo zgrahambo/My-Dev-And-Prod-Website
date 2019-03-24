@@ -1,7 +1,8 @@
 import {
   FETCH_TRACKS_INFO_SUCCESS,
   FETCH_COLLABORATOR_INFO_SUCCESS,
-  FETCH_COLLABORATOR_AF_AWARDS_SUCCESS } from '../actions/types';
+  FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
+  CHOOSE_NEW_PLAYLIST } from '../actions/types';
 
 const initialState = {
   loading: false,
@@ -48,6 +49,12 @@ export default function(state=initialState, action) {
         },
         collabAwardsLoaded: true
       };
+    case CHOOSE_NEW_PLAYLIST:
+      console.log("suppp?", {...initialState});
+      return {
+        ...state,
+        ...initialState
+      }
     default:
       return state;
   }

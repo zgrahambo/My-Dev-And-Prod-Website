@@ -1,6 +1,7 @@
 import {
   ACTIVATE_COLLABORATORS,
-  TOGGLE_COLLABORATOR_CARD } from '../actions/types';
+  TOGGLE_COLLABORATOR_CARD,
+  CHOOSE_NEW_PLAYLIST } from '../actions/types';
 
 const initialState = {
   activeCollaborators: {}
@@ -21,6 +22,11 @@ export default function(state=initialState, action) {
         activeCollaborators: {
           ...collabStates
         }
+      }
+    case CHOOSE_NEW_PLAYLIST:
+      return {
+        ...state,
+        ...initialState
       }
     default:
       return state;

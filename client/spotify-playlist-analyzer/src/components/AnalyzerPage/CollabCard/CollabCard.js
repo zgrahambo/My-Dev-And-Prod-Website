@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleActiveCollaborator } from '../../actions/individualCollabActions';
+import { toggleActiveCollaborator } from '../../../actions/individualCollabActions';
 
 import { Card, Segment, Image, Icon } from 'semantic-ui-react';
 import ccStyle from './CollabCard.module.scss';

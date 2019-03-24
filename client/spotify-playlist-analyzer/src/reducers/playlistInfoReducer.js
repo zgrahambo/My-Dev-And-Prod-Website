@@ -1,7 +1,8 @@
 import {
   PLAYLIST_CHOSEN_TRACK_INFO_LOADING,
   FETCH_TRACKS_INFO_SUCCESS,
-  FETCH_TRACKS_INFO_FAILURE } from '../actions/types';
+  FETCH_TRACKS_INFO_FAILURE,
+  CHOOSE_NEW_PLAYLIST } from '../actions/types';
 
 const initialState = {
   playlistChosen: false,
@@ -29,6 +30,13 @@ export default function(state=initialState, action) {
         ...state,
         error: action.payload,
         loading: false
+      };
+    case CHOOSE_NEW_PLAYLIST:
+      return {
+        ...state,
+        playlistChosen: false,
+        loading: false,
+        error: null
       };
     default:
       return state;
