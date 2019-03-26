@@ -1,5 +1,5 @@
-import Score from './Score'
-import { PersonalAwards } from './PersonalAwards'
+import { Score } from './Score';
+import { PersonalAwards } from './PersonalAwards';
 
 export class Collaborator {
   constructor(id, trackIds=[]){

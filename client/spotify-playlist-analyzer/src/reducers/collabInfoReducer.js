@@ -50,7 +50,6 @@ export default function(state=initialState, action) {
         collabAwardsLoaded: true
       };
     case CHOOSE_NEW_PLAYLIST:
-      console.log("suppp?", {...initialState});
       return {
         ...state,
         ...initialState

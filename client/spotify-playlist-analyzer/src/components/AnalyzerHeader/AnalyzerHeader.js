@@ -9,8 +9,8 @@ import { chooseNewPlaylist } from '../../actions/spotifyActions';
 
 class AnalyzerHeader extends Component {
   handleClickChooseNewPlaylist() {
-    this.props.chooseNewPlaylist();
     this.props.history.push('/spa/choose-playlist');
+    this.props.chooseNewPlaylist();
   }
 
   render() {

@@ -1,6 +1,5 @@
 import { Collaborator } from './Collaborator';
 import { CollabGroup } from './CollabGroup';
-import { awards } from './PersonalAwards';
 
 export function generateCollabGroupObject(tracks) {
   let collaborators = {}, currentCollaboratorId;
@@ -69,12 +68,8 @@ export function fetchAudioFeatures(token, collabGroup) {
 
 export function collectAllUsersAFScores(audioFeaturesArray, collabGroup) {
   let currentCollaborator;
-  console.log(audioFeaturesArray);
   audioFeaturesArray.forEach((audioFeature) => {
-    console.log(audioFeature);
-    console.log(collabGroup)
     currentCollaborator = collabGroup.collabIdToCollabObj[collabGroup.trackIdToCollabId[audioFeature.id]];
-    console.log(currentCollaborator)
     currentCollaborator.score.increaseAcousticness(audioFeature.acousticness);
     currentCollaborator.score.increaseDanceability(audioFeature.danceability);
     currentCollaborator.score.increaseEnergy(audioFeature.energy);
@@ -83,34 +78,34 @@ export function collectAllUsersAFScores(audioFeaturesArray, collabGroup) {
     currentCollaborator.score.increaseTempo(audioFeature.tempo);
     currentCollaborator.score.increasePositivity(audioFeature.valence);
     currentCollaborator.score.increaseSpeechiness(audioFeature.speechiness);
-    console.log("hello2")
   });
-  
 }
 
 export function chooseEachCollabsAwards(collabGroup) {
   let collaborator, n, averages;
-  for (let collaboratorID in collabGroup.collabIdToCollabObj) {
-    collaborator = collabGroup.collabIdToCollabObj[collaboratorID];
+  let collabIdToCollabObj = collabGroup.collabIdToCollabObj;
+  for (let collaboratorID in collabIdToCollabObj) {
+    collaborator = collabIdToCollabObj[collaboratorID];
     n = collaborator.getNumTracks();
     averages = collaborator.score.getAverages(n);
 
     let averageAF, currentAward;
-    for (let average in averages) {
-      averageAF = averages[average];
-      currentAward = awards[average];
+    for (let audioFeatureName in averages) {
+      averageAF = averages[audioFeatureName];
+      currentAward = collabGroup.awards[audioFeatureName];
       if (averageAF > currentAward.val) {
         currentAward.id = collaboratorID;
         currentAward.val = averageAF;
       }
     }
   }
+  let awards = collabGroup.awards;
   for (let award in awards) {
-    if (collabGroup.collabIdToCollabObj[awards[award].id])
-      collabGroup.collabIdToCollabObj[awards[award].id].awards.addAward(awards[award]);
+    if (collabIdToCollabObj[awards[award].id])
+      collabIdToCollabObj[awards[award].id].awards.addAward(awards[award]);
   }
 
-  return collabGroup.collabIdToCollabObj;
+  return collabIdToCollabObj;
 }
 
 export function getCollaboratorObjects(collabGroup) {

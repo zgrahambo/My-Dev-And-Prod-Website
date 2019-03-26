@@ -1,7 +1,8 @@
 import { FETCH_PLAYLISTS_LOADING,
          FETCH_PLAYLISTS_SUCCESS,
          FETCH_PLAYLISTS_FAILURE,
-         ACTIVATE_DEMO } from "../actions/types";
+         ACTIVATE_DEMO,
+         CHOOSE_NEW_PLAYLIST } from "../actions/types";
 
 const initialState = {
   playlists: [],
@@ -35,6 +36,11 @@ export default function(state=initialState, action) {
         ...state,
         ...initialState,
         demo: true
+      }
+    case CHOOSE_NEW_PLAYLIST:
+      return {
+        ...state,
+        ...initialState
       }
     default:
       return state;

@@ -1,6 +1,6 @@
-class Score {
+export class Score {
   constructor(scoreSet) {
-    if(scoreSet === undefined) {
+    if(!scoreSet) {
       this.numTracks = 0;
       this.duration = 0;
       this.popularity = 0;
@@ -76,5 +76,3 @@ class Score {
     };
   }
 }
-
-export default Score;
