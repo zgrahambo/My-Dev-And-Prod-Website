@@ -41,7 +41,6 @@ class PlaylistAnalyzerApp extends Component {
               }}
               />
             </ErrorBoundary>
-            <br/>
           </Container>
         </BrowserRouter>
       </Provider>

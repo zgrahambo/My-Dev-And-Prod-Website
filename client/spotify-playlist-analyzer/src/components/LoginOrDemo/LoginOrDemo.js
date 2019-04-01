@@ -5,7 +5,7 @@ import { activateDemo } from '../../actions/spotifyActions';
 
 import { windowLoc } from '../../util/site';
 
-import { Button } from 'semantic-ui-react';
+import { Grid, Button } from 'semantic-ui-react';
 import Error from '../error-handling/Error/Error';
 
 const LOGIN_TYPE = 'login'
@@ -53,11 +53,15 @@ class PlaylistPicker extends Component {
     }
     else {
       return (
-        <Button.Group>
-          <Button onClick={(e) => this.handleClick(e, LOGIN_TYPE)}>Login to Analyzer Your Playlists</Button>
-          <Button.Or />
-          <Button onClick={(e) => this.handleClick(e, DEMO_TYPE)} positive>Demo Playlist</Button>
-        </Button.Group>
+        <Grid centered>
+          <Grid.Column textAlign="center" centered width={10}>
+            <Button.Group>
+              <Button onClick={(e) => this.handleClick(e, LOGIN_TYPE)}>Login to Analyzer Your Playlists</Button>
+              <Button.Or />
+              <Button onClick={(e) => this.handleClick(e, DEMO_TYPE)} positive>Demo Playlist</Button>
+            </Button.Group>
+          </Grid.Column>
+        </Grid>
       );
     }
   }
