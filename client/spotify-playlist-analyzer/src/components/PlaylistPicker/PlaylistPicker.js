@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Header, Grid, Menu, Image } from 'semantic-ui-react';
+import ppStyle from './PlaylistPicker.module.scss';
 
 import { fetchPlaylists, fetchPlaylistInfo } from '../../actions/spotifyActions';
 import Error from '../error-handling/Error/Error';
@@ -43,13 +44,13 @@ class PlaylistPicker extends Component {
 
     return (!this.props.playlistChosen &&
       <div>
-        {!this.props.loading && <Header textAlign="center" as="h2"> Choose a playlist:</Header>}
+        <Header className={ppStyle['offset-header']} textAlign="center" as="h2"> Choose a playlist:</Header>
         <Grid centered>
           <Grid.Column width={10}>
-            <Menu inverted fluid vertical>
+            {!this.props.loading && <Menu inverted fluid vertical>
               <Menu.Item header>Collaborative Playlists</Menu.Item>
               {menuItems}
-            </Menu>
+            </Menu> }
             {loadingSpinner}
           </Grid.Column>
         </Grid>

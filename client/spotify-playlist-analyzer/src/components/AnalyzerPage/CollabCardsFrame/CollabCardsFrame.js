@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Header, CardGroup, Image } from 'semantic-ui-react';
+import ccfStyle from './CollabCardsFrame.module.scss';
 import Error from '../../error-handling/Error/Error';
 import CollabCard from '../CollabCard/CollabCard';
 
@@ -46,7 +47,7 @@ class CollabCardsFrame extends Component {
 
     return (
       <div>
-        <Header textAlign="center" as="h2">{name ? "Analyzing Playlist: \"" +  name + "\"": ''}</Header>
+        <Header className={ccfStyle['offset-header']} textAlign="center" as="h2">{name ? "Playlist \"" +  name + "\" Analysis": ''}</Header>
         <CardGroup centered itemsPerRow={numCardsPerRow}>
           { cards }
         </CardGroup>
