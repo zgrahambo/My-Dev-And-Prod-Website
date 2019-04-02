@@ -32,24 +32,25 @@ export function fetchPlaylists(token) {
     dispatch({
       type: FETCH_PLAYLISTS_LOADING
     });
+
     fetch('https://api.spotify.com/v1/me/playlists', {
       method: 'GET',
       headers: {'Authorization': 'Bearer ' + token}
     })
-      .then(res => res.json())
-      .then(playlists => {
-        dispatch({
-          type: FETCH_PLAYLISTS_SUCCESS,
-          payload: playlists
-        });
-      })
-      .catch(error => dispatch({
-        type: FETCH_PLAYLISTS_FAILURE,
-        payload: {
-          msg: "Something went wrong with the connection to the Spotify API",
-          linkText: "Try with new token!"
-        }
-      }));
+    .then(res => res.json())
+    .then(playlists => {
+      dispatch({
+        type: FETCH_PLAYLISTS_SUCCESS,
+        payload: playlists
+      });
+    })
+    .catch(error => dispatch({
+      type: FETCH_PLAYLISTS_FAILURE,
+      payload: {
+        msg: "Something went wrong with the connection to the Spotify API",
+        linkText: "Try with new token!"
+      }
+    }));
   }
 }
 
@@ -59,6 +60,7 @@ export function fetchPlaylistInfo(token, playlistInfo) {
       type: PLAYLIST_CHOSEN_TRACK_INFO_LOADING,
       payload: playlistInfo.name
     });
+    
     fetchPlaylistTracksInfo(token, playlistInfo.tracks.href, dispatch)
     .then(tracks => generateCollabGroupObject(tracks))
     .then((collabGroup) => {

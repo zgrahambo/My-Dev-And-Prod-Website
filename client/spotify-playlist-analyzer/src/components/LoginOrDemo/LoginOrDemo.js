@@ -54,7 +54,7 @@ class PlaylistPicker extends Component {
     else {
       return (
         <Grid centered>
-          <Grid.Column textAlign="center" centered width={10}>
+          <Grid.Column textAlign="center" width={10}>
             <Button.Group>
               <Button onClick={(e) => this.handleClick(e, LOGIN_TYPE)}>Login to Analyzer Your Playlists</Button>
               <Button.Or />
