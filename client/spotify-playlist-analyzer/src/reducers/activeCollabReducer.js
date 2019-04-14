@@ -12,7 +12,7 @@ export default function(state=initialState, action) {
     case ACTIVATE_COLLABORATORS:
       return {
         ...state,
-        activeCollaborators: action.payload
+        activeCollaborators: action.activeCollaborators
       };
     case TOGGLE_COLLABORATOR_CARD:
       let collabStates = Object.assign({}, state.activeCollaborators);

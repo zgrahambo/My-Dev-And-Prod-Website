@@ -4,30 +4,36 @@ import { Redirect } from 'react-router-dom';
 import { Header, Grid, Menu, Image } from 'semantic-ui-react';
 import ppStyle from './PlaylistPicker.module.scss';
 
-import { fetchPlaylists, fetchPlaylistInfo } from '../../actions/spotifyActions';
+import { fetchPlaylists, fetchPlaylistInfo, getDemoPlaylistInfo } from '../../actions/spotifyActionCreators';
 import Error from '../error-handling/Error/Error';
 import loading_gif from '../../img/loading.gif';
 
 class PlaylistPicker extends Component {
   constructor(props) {
     super(props);
-    this.props.fetchPlaylists(this.props.token);
+    if(!this.props.demo)
+      this.props.fetchPlaylists(this.props.token);
   }
 
   handleClick(e, playlistInfo) {
-    this.props.choosePlaylist(this.props.token, playlistInfo);
+    if (!this.props.demo)
+      this.props.fetchPlaylistInfo(this.props.token, playlistInfo);
+    else
+      this.props.getDemoPlaylistInfo(playlistInfo);
   }
 
-  extractCollabPlaylists(data) {
-    if (data && data.items) {
-      let menuItems = [], playlists = data.items;
+  extractCollabPlaylists() {
+    const playlists = this.props.playlists;
+    console.log(playlists)
+    if (playlists) {
+      let menuItems = [];
       for (let i = 0; i < playlists.length; i++) {
         if (playlists[i].collaborative)
-          menuItems.push(<Menu.Item onClick={(e) => this.handleClick(e, playlists[i])} key={i} as='a' name={playlists[i].name} id={playlists[i].id}>{playlists[i].name}</Menu.Item>);
+          menuItems.push(<Menu.Item onClick={(e) => this.handleClick(e, playlists[i])} key={playlists[i].id} as='a' name={playlists[i].name}>{playlists[i].name}</Menu.Item>);
       }
       return menuItems;
     }
-    return data;
+    return playlists;
   }
 
   render() {
@@ -39,7 +45,7 @@ class PlaylistPicker extends Component {
       return <Redirect to='/spa/analyze-playlist' />
     }
 
-    let menuItems = this.extractCollabPlaylists(this.props.playlists);
+    let menuItems = this.extractCollabPlaylists();
     let loadingSpinner = this.props.loading && <Image src={loading_gif} centered/>;
 
     return (!this.props.playlistChosen &&
@@ -63,7 +69,8 @@ const mapStateToProps = state => ({
   playlists: state.playlists.playlists,
   loading: state.playlists.loading,
   error: state.playlists.error,
+  demo: state.playlists.demo,
   playlistChosen: state.playlistInfo.playlistChosen
 });
 
-export default connect(mapStateToProps, { fetchPlaylists, choosePlaylist: fetchPlaylistInfo })(PlaylistPicker);
+export default connect(mapStateToProps, { fetchPlaylists, fetchPlaylistInfo, getDemoPlaylistInfo})(PlaylistPicker);

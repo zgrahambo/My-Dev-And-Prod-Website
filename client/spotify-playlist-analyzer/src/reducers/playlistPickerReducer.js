@@ -19,10 +19,11 @@ export default function(state=initialState, action) {
         loading: true
       };
     case FETCH_PLAYLISTS_SUCCESS:
+      console.log(action.playlists)
       return {
         ...state,
         loading: false,
-        playlists: action.payload
+        playlists: action.playlists
       };
     case FETCH_PLAYLISTS_FAILURE:
       return {
@@ -32,6 +33,7 @@ export default function(state=initialState, action) {
         playlists: []
       };
     case ACTIVATE_DEMO:
+      console.log(state);
       return {
         ...state,
         ...initialState,

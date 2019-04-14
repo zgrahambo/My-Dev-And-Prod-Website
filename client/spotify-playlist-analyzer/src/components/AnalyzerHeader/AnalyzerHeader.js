@@ -5,7 +5,7 @@ import { homeUrl } from '../../util/site';
 import { Header, Grid, Button, Icon, Menu } from 'semantic-ui-react';
 import headerStyle from './AnalyzerHeader.module.scss'
 
-import { chooseNewPlaylist } from '../../actions/spotifyActions';
+import { chooseNewPlaylist } from '../../actions/spotifyActionCreators';
 
 class AnalyzerHeader extends Component {
   handleClickChooseNewPlaylist() {

@@ -11,13 +11,14 @@ const initialState = {
   error: null
 };
 
+
 export default function(state=initialState, action) {
   switch(action.type) {
     case PLAYLIST_CHOSEN_TRACK_INFO_LOADING:
       return {
         ...state,
         playlistChosen: true,
-        playlistName: action.payload,
+        playlistName: action.playlistName,
         loading: true
       };
     case FETCH_TRACKS_INFO_SUCCESS:

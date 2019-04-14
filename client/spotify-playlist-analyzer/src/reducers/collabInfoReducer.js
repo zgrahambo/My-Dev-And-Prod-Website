@@ -32,9 +32,9 @@ export default function(state=initialState, action) {
         ...state,
         collaboratorsModel: {
           collaborators: {
-            ...action.payload
+            ...action.collaborators
           },
-          order: state.collaboratorsModel.order
+          order: state.collaboratorsModel.order // keep order same as prev state
         },
         collabInfoLoaded: true
       };
@@ -43,7 +43,7 @@ export default function(state=initialState, action) {
         ...state,
         collaboratorsModel: {
           collaborators: {
-            ...action.payload
+            ...action.collaborators
           },
           order: state.collaboratorsModel.order
         },

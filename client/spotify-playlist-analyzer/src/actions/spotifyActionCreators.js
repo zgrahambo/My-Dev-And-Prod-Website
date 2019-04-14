@@ -1,37 +1,28 @@
 import fetch from "node-fetch";
-import {
-  FETCH_PLAYLISTS_LOADING,
-  FETCH_PLAYLISTS_SUCCESS,
-  FETCH_PLAYLISTS_FAILURE,
-  ACTIVATE_DEMO,
-  PLAYLIST_CHOSEN_TRACK_INFO_LOADING,
-  FETCH_TRACKS_INFO_FAILURE,
-  FETCH_TRACKS_INFO_SUCCESS,
-  FETCH_COLLABORATOR_INFO_SUCCESS,
-  FETCH_COLLABORATOR_INFO_FAILURE,
-  FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
-  FETCH_COLLABORATOR_AF_AWARDS_FAILURE,
-  ACTIVATE_COLLABORATORS,
-  CHOOSE_NEW_PLAYLIST } from './types';
-
 import { 
   generateCollabGroupObject,
   getCollaboratorData,
   fetchAudioFeatures,
   chooseEachCollabsAwards,
   collectAllUsersAFScores,
-  getCollaboratorObjects
+  getCollaboratorObjects,
 } from '../spotify/utils';
+import demo from './demo.json';
+import { activateDemo, startPlaylistPickerLoading, loadedPlaylistsSuccessfully,
+         failedToLoadPlaylists, startedLoadingPlaylistInfo, failedToLoadPlaylistInfo,
+         successfullyLoadedCollaboratorInfo, failedToLoadCollaboratorInfo,
+         successfullyLoadedAudioFeatureAwards, failedToLoadedAudioFeatureAwards,
+         successfullyLoadedPlaylistInfo, activateCollaborator, chooseNewPlaylistAction } from './actions';
 
+
+// REAL (SPOTIFY API) PLAYLIST ACTION CREATORS AND HELPER FUNCTIONS
 
 /* fetchPlaylists is a function that takes in */
 /* spotify token and returns an async function  */
 /*  that is sent as a prop to the component     */
 export function fetchPlaylists(token) {
   return (dispatch) => {
-    dispatch({
-      type: FETCH_PLAYLISTS_LOADING
-    });
+    dispatch(startPlaylistPickerLoading());
 
     fetch('https://api.spotify.com/v1/me/playlists', {
       method: 'GET',
@@ -39,45 +30,25 @@ export function fetchPlaylists(token) {
     })
     .then(res => res.json())
     .then(playlists => {
-      dispatch({
-        type: FETCH_PLAYLISTS_SUCCESS,
-        payload: playlists
-      });
+      console.log(playlists)
+      dispatch(loadedPlaylistsSuccessfully(playlists.items));
     })
-    .catch(error => dispatch({
-      type: FETCH_PLAYLISTS_FAILURE,
-      payload: {
-        msg: "Something went wrong with the connection to the Spotify API",
-        linkText: "Try with new token!"
-      }
-    }));
+    .catch(error => {
+      dispatch(failedToLoadPlaylists("Something went wrong with the connection to the Spotify API", "Try with new token!"))
+    });
   }
 }
 
 export function fetchPlaylistInfo(token, playlistInfo) {
   return (dispatch) => {
-    dispatch({
-      type: PLAYLIST_CHOSEN_TRACK_INFO_LOADING,
-      payload: playlistInfo.name
-    });
+    dispatch(startedLoadingPlaylistInfo());
     
     fetchPlaylistTracksInfo(token, playlistInfo.tracks.href, dispatch)
     .then(tracks => generateCollabGroupObject(tracks))
     .then((collabGroup) => {
       const collaborators = collabGroup.collabIdToCollabObj;
-      dispatch({
-        type: FETCH_TRACKS_INFO_SUCCESS,
-        payload: { collaborators: collaborators,
-                    order: collabGroup.collabOrder }
-      });
-      
-      dispatch({
-        type: ACTIVATE_COLLABORATORS,
-        payload: Object.keys(collaborators).reduce((obj, currentValue) => {
-                    obj[currentValue] = true;
-                    return obj;
-                  }, {})
-      });
+      dispatch(successfullyLoadedPlaylistInfo({ collaborators: collaborators, order: collabGroup.collabOrder }));
+      dispatch(activateCollaborator(collaborators));
       return collabGroup;
     })
     .then(collabGroup => {
@@ -92,19 +63,9 @@ export function fetchPlaylistInfo(token, playlistInfo) {
 
 export function chooseNewPlaylist() {
   return (dispatch) => {
-    dispatch({
-      type: CHOOSE_NEW_PLAYLIST
-    });
-  }
-}
-
-export function activateDemo() {
-  return (dispatch) => {
-    dispatch({
-      type: ACTIVATE_DEMO
-    });
-  }
-}
+    dispatch(chooseNewPlaylistAction());
+  };
+};
 
 async function fetchPlaylistTracksInfo(token, tracksLink, dispatch) {
   let tracks=[];
@@ -119,27 +80,18 @@ async function fetchPlaylistTracksInfo(token, tracksLink, dispatch) {
       tracks.push(...data.items);
       return data.next;
     })
-    .catch(err => dispatch({
-      type: FETCH_TRACKS_INFO_FAILURE,
-      payload: err
-    }));
+    .catch(err => dispatch(failedToLoadPlaylistInfo(err)));
   }
   return tracks;
 }
 
 function createCollabCards(token, dispatch, collabGroup) {
   getCollaboratorData(token, collabGroup)
-    .then(collabData => {
-      dispatch({
-        type: FETCH_COLLABORATOR_INFO_SUCCESS,
-        payload: collabData
-      });
+    .then(collaboratorsInfo => {
+      dispatch(successfullyLoadedCollaboratorInfo(collaboratorsInfo));
     })
     .catch(err => {
-      dispatch({
-        type: FETCH_COLLABORATOR_INFO_FAILURE,
-        payload: err
-      })
+      dispatch(failedToLoadCollaboratorInfo(err));
     });
   fetchAudioFeatures(token, collabGroup)
     .then(res => {  // format to json
@@ -160,13 +112,29 @@ function createCollabCards(token, dispatch, collabGroup) {
       return getCollaboratorObjects(collabGroup);
     })
     .then(collabData => {
-      dispatch({
-        type: FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
-        payload: collabData
-      });
+      dispatch(successfullyLoadedAudioFeatureAwards(collabData));
     })
-    .catch(err => dispatch({
-      type: FETCH_COLLABORATOR_AF_AWARDS_FAILURE,
-      payload: err
-    }));
+    .catch(err => dispatch(failedToLoadedAudioFeatureAwards(err)));
+}
+
+// DEMO ACTION CREATORS AND HELPER FUNCTIONS
+export function loadDemoPlaylists() {
+  return (dispatch) => {
+    console.log(demo)
+    dispatch(activateDemo());
+    dispatch(startPlaylistPickerLoading());
+    const playlists = getDemoPlaylists();
+    dispatch(loadedPlaylistsSuccessfully(playlists));
+  };
+}
+
+const getDemoPlaylists = () => {
+  return demo.playlists;
+}
+
+export function getDemoPlaylistInfo(playlistInfo) {
+  return (dispatch) => {
+    dispatch(startedLoadingPlaylistInfo(playlistInfo.name));
+    dispatch();
+  };
 }
