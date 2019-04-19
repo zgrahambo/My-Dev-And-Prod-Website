@@ -55,7 +55,7 @@ class PlaylistPicker extends Component {
             <Button.Group>
               <Button onClick={(e) => this.handleClick(e, LOGIN_TYPE)} positive>Login to Analyzer Your Playlists</Button>
               <Button.Or />
-              <Button onClick={(e) => this.handleClick(e, DEMO_TYPE)}>Demo Playlist</Button>
+              <Button disabled onClick={(e) => this.handleClick(e, DEMO_TYPE)}>Demo Playlist</Button>
             </Button.Group>
           </Grid.Column>
         </Grid>

@@ -21,7 +21,7 @@ class Homepage extends Component {
         <Divider />
         <InfoblocksFrame>
           <Infoblock target="_blank" href="https://www.scu.edu" qckDesc="My Alma Mater" iconClass="university" infoText="SCU" />
-          <Infoblock href="mailto:zgraham@scu.edu" qckDesc="Email Me" iconClass="mail" infoText="zgraham@scu.edu" />
+          <Infoblock href="mailto:zgraham@alumni.scu.edu" qckDesc="Email Me" iconClass="mail" infoText="zgraham@alumni.scu.edu" />
           <Infoblock target="_blank" href="https://github.com/zgrahambo" qckDesc="My Github" iconClass="github" infoText="zgrahambo" />
           <Infoblock href="javascript:void(0)" qckDesc="Home" iconClass="home" infoText="Santa Clara, CA" />
           <Infoblock target="_blank" href="documents/Zachary_Graham_Resume_2019.pdf" qckDesc="My Resume" iconClass="file pdf outline" infoText="Resume" />
