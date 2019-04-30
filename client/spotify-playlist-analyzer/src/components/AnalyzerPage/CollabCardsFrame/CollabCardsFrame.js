@@ -13,20 +13,8 @@ class CollabCardsFrame extends Component {
 
   createCards() {
     let cards = [];
-    const collaboratorsModel = this.props.collaboratorsModel;
-    const collaborators = collaboratorsModel.collaborators,
-      collabInfoLoaded = this.props.collabInfoLoaded,
-      collabAwardsLoaded = this.props.collabAwardsLoaded;
-    let currentCollaborator, img, name, color, awards;
-
-    collaboratorsModel.order.forEach((id) => {
-      currentCollaborator = collaborators[id]; 
-      img = collabInfoLoaded ? currentCollaborator.img : defaultProfilePic;
-      name = collabInfoLoaded ? currentCollaborator.name : 'Unknown User';
-      color = collabInfoLoaded ? currentCollaborator.primaryColor : "";
-      awards = collabAwardsLoaded ? currentCollaborator.awards.awardList : [];
-      cards.push(<CollabCard key={"card"+id} id={id} numTracksAdded={currentCollaborator.getNumTracks()}
-                              img={img} name={name} awards={awards} color={color}/>);
+    this.props.collaboratorIds.forEach((collaboratorId) => {
+      cards.push(<CollabCard key={"card_"+collaboratorId} id={collaboratorId}/>)
     });
     return cards;
   }
@@ -59,9 +47,7 @@ const mapStateToProps = state => ({
   playlistName: state.playlistInfo.playlistName,
   loading: state.playlistInfo.loading,
   error: state.playlistInfo.error,
-  collaboratorsModel: state.collabInfo.collaboratorsModel,
-  collabInfoLoaded: state.collabInfo.collabInfoLoaded,
-  collabAwardsLoaded: state.collabInfo.collabAwardsLoaded
+  collaboratorIds: state.collabInfo.orderedCollaborators,
 });
 
 export default connect(mapStateToProps, {}) (CollabCardsFrame);

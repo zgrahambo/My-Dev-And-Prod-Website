@@ -1,6 +1,21 @@
 import { Collaborator } from './Collaborator';
 import { CollabGroup } from './CollabGroup';
 
+// export function extractCollaborators(tracks) {
+//   let collaborators = {}, collaborator;
+
+//   tracks.forEach((track) => {
+//     collaborator = collaborators[track.added_by.id];
+
+//     if (!collaborators[collaboratorId]) {
+//       collaborators[collaboratorId] = new Collaborator(collaboratorId);
+//     }
+//     collaborators[collaboratorId].addTrackId(track.track.id);
+//     collaborators[collaboratorId].score.increasePopularity(track.track.popularity);
+//     collaborators[collaboratorId].score.increaseDuration(track.track.duration_ms);
+//   });
+// }
+
 export function generateCollabGroupObject(tracks) {
   let collaborators = {}, currentCollaboratorId;
   tracks.forEach((track) => {

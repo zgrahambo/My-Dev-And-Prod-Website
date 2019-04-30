@@ -10,5 +10,40 @@
       "name": "Sample Playlist #2",
       "id": "37i9dQZF1DXbcPC6Vvqudd"
     }
-  ]
+  ],
+  "collabOrder": ["id1", "id2", "id3"],
+  "collaborators": {
+    "id1": {
+      "name": "Zach",
+      "img": "google.com/img",
+      "cardColor": "blue",
+      "numTracks": 77,
+      "awards": [
+        {
+          "award1": {
+            "icon": "group",
+            "text": "Most popular songs",
+            "id": "",
+            "val": 0
+          }
+        }
+      ]
+    },
+    "id2": {
+      "name": "Bob",
+      "img": "img.com",
+      "cardColor": "red",
+      "numTracks": 97,
+      "awards": [
+        {
+          "award1": {
+            "icon": "group",
+            "text": "Most popular songs",
+            "id": "",
+            "val": 0
+          }
+        }
+      ]
+    }
+  }
 }

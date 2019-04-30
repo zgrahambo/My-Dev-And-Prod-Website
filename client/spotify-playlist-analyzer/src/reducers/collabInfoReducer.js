@@ -7,6 +7,8 @@ import {
 const initialState = {
   loading: false,
   error: null,
+  orderedCollaborators: [],
+  collaborators: {},
   collaboratorsModel: {
     collaborators: {},
     order: []
@@ -18,8 +20,13 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case FETCH_TRACKS_INFO_SUCCESS:
+      console.log(action.payload.collaborators)
       return {
         ...state,
+        collaborators: {
+          ...action.payload.collaborators
+        },
+        orderedCollaborators: action.payload.order,
         collaboratorsModel: {
           collaborators: {
             ...action.payload.collaborators
