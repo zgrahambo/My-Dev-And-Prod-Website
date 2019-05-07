@@ -24,7 +24,6 @@ class PlaylistPicker extends Component {
 
   extractCollabPlaylists() {
     const playlists = this.props.playlists;
-    console.log(playlists)
     if (playlists) {
       let menuItems = [];
       for (let i = 0; i < playlists.length; i++) {

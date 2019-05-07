@@ -20,7 +20,6 @@ const initialState = {
 export default function(state=initialState, action) {
   switch(action.type) {
     case FETCH_TRACKS_INFO_SUCCESS:
-      console.log(action.payload.collaborators)
       return {
         ...state,
         collaborators: {
