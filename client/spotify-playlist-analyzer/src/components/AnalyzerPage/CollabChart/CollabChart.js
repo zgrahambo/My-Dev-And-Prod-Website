@@ -23,10 +23,9 @@ class CollabChart extends Component {
     };
   }
   legendClickHandler = (clickEvent, legendClicked) => {
-    this.props.toggleActiveCollaborator(this.props.collaborator[legendClicked.datasetIndex]);
+    this.props.toggleActiveCollaborator(this.props.orderedCollaborators[legendClicked.datasetIndex])
   }
   getDatasets = () => {
-    const collaboratorsModel = this.props.collaboratorsModel;
     const collaborators = this.props.collaborators;
     let datasets = [];
     this.props.orderedCollaborators.forEach((collabID) => {
@@ -52,6 +51,10 @@ class CollabChart extends Component {
   }
 
   render() {
+    if (!this.props.collabAwardsLoaded) {
+      return null;
+    }
+    
     const data = {
       labels: this.labels,
       datasets: this.getDatasets()

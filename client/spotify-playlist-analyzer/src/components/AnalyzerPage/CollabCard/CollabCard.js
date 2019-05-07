@@ -13,9 +13,9 @@ class CollabCard extends Component {
 
   render() {
     const collaborator = this.props.collaborator;
-    if (!collaborator)
-      return;
-
+    if (!collaborator) {
+      return null;
+    }
     const awardsArray = collaborator.awards && collaborator.awards.awardList;
     const name = collaborator.name ? collaborator.name : "Unknown";
     const color = collaborator.primaryColor;

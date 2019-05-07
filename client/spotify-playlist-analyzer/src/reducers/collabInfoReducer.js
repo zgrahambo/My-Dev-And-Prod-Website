@@ -26,12 +26,6 @@ export default function(state=initialState, action) {
           ...action.payload.collaborators
         },
         orderedCollaborators: action.payload.order,
-        // collaboratorsModel: {
-        //   collaborators: {
-        //     ...action.payload.collaborators
-        //   },
-        //   order: action.payload.order
-        // }
       };
     case FETCH_COLLABORATOR_INFO_SUCCESS:
       return {
@@ -43,12 +37,6 @@ export default function(state=initialState, action) {
       return {
         ...state,
         collaborators: updateEachCollaborator(action.collaborators),
-        // collaboratorsModel: {
-        //   collaborators: {
-        //     ...action.collaborators
-        //   },
-        //   order: state.collaboratorsModel.order
-        // },
         collabAwardsLoaded: true
       };
     case CHOOSE_NEW_PLAYLIST:
