@@ -27,33 +27,29 @@ export default function(state=initialState, action) {
           ...action.payload.collaborators
         },
         orderedCollaborators: action.payload.order,
-        collaboratorsModel: {
-          collaborators: {
-            ...action.payload.collaborators
-          },
-          order: action.payload.order
-        }
+        // collaboratorsModel: {
+        //   collaborators: {
+        //     ...action.payload.collaborators
+        //   },
+        //   order: action.payload.order
+        // }
       };
     case FETCH_COLLABORATOR_INFO_SUCCESS:
       return {
         ...state,
-        collaboratorsModel: {
-          collaborators: {
-            ...action.collaborators
-          },
-          order: state.collaboratorsModel.order // keep order same as prev state
-        },
+        collaborators: updateEachCollaborator(action.collaborators),
         collabInfoLoaded: true
       };
     case FETCH_COLLABORATOR_AF_AWARDS_SUCCESS:
       return {
         ...state,
-        collaboratorsModel: {
-          collaborators: {
-            ...action.collaborators
-          },
-          order: state.collaboratorsModel.order
-        },
+        collaborators: updateEachCollaborator(action.collaborators),
+        // collaboratorsModel: {
+        //   collaborators: {
+        //     ...action.collaborators
+        //   },
+        //   order: state.collaboratorsModel.order
+        // },
         collabAwardsLoaded: true
       };
     case CHOOSE_NEW_PLAYLIST:
@@ -64,4 +60,14 @@ export default function(state=initialState, action) {
     default:
       return state;
   }
+}
+
+const updateEachCollaborator = (collaborators) => {
+  let updatedCollaborators = {};
+  for (let id in collaborators) {
+    updatedCollaborators[id] = {
+      ...collaborators[id]
+    };
+  }
+  return updatedCollaborators;
 }

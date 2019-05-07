@@ -30,7 +30,6 @@ export function fetchPlaylists(token) {
     })
     .then(res => res.json())
     .then(playlists => {
-      console.log(playlists)
       dispatch(loadedPlaylistsSuccessfully(playlists.items));
     })
     .catch(error => {
@@ -47,6 +46,7 @@ export function fetchPlaylistInfo(token, playlistInfo) {
     .then(tracks => generateCollabGroupObject(tracks))
     .then((collabGroup) => {
       const collaborators = collabGroup.collabIdToCollabObj;
+      // should just pass returned data that collabcard users 
       dispatch(successfullyLoadedPlaylistInfo({ collaborators: collaborators, order: collabGroup.collabOrder }));
       dispatch(activateCollaborator(collaborators));
       return collabGroup;
@@ -120,7 +120,6 @@ function createCollabCards(token, dispatch, collabGroup) {
 // DEMO ACTION CREATORS AND HELPER FUNCTIONS
 export function loadDemoPlaylists() {
   return (dispatch) => {
-    console.log(demo)
     dispatch(activateDemo());
     dispatch(startPlaylistPickerLoading());
     const playlists = getDemoPlaylists();

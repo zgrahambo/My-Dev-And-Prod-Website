@@ -7,7 +7,6 @@ import Error from '../../error-handling/Error/Error';
 import CollabCard from '../CollabCard/CollabCard';
 
 import loading_gif from '../../../img/loading.gif';
-import defaultProfilePic from '../../../img/defaultProfilePic.png';
 
 class CollabCardsFrame extends Component {
 
@@ -47,7 +46,7 @@ const mapStateToProps = state => ({
   playlistName: state.playlistInfo.playlistName,
   loading: state.playlistInfo.loading,
   error: state.playlistInfo.error,
-  collaboratorIds: state.collabInfo.orderedCollaborators,
+  collaboratorIds: state.collabInfo.orderedCollaborators
 });
 
 export default connect(mapStateToProps, {}) (CollabCardsFrame);

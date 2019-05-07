@@ -23,15 +23,13 @@ class CollabChart extends Component {
     };
   }
   legendClickHandler = (clickEvent, legendClicked) => {
-    this.props.toggleActiveCollaborator(
-      this.props.collaboratorsModel.order[legendClicked.datasetIndex]
-    );
+    this.props.toggleActiveCollaborator(this.props.collaborator[legendClicked.datasetIndex]);
   }
   getDatasets = () => {
     const collaboratorsModel = this.props.collaboratorsModel;
-    const collaborators = collaboratorsModel.collaborators;
+    const collaborators = this.props.collaborators;
     let datasets = [];
-    collaboratorsModel.order.forEach((collabID) => {
+    this.props.orderedCollaborators.forEach((collabID) => {
       const collaborator = collaborators[collabID];
       const avgs = collaborator.score.getAverages();
       let dataset = {
@@ -71,7 +69,8 @@ class CollabChart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  collaboratorsModel: state.collabInfo.collaboratorsModel,
+  collaborators: state.collabInfo.collaborators,
+  orderedCollaborators: state.collabInfo.orderedCollaborators,
   collabInfoLoaded: state.collabInfo.collabInfoLoaded,
   collabAwardsLoaded: state.collabInfo.collabAwardsLoaded,
   active: state.activeCollab.activeCollaborators

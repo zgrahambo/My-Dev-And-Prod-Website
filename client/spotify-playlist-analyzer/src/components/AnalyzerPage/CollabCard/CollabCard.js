@@ -12,27 +12,33 @@ class CollabCard extends Component {
   }
 
   render() {
-    console.log("test", this.props.id);
-    //const awardsArray = this.props.awards;
-    const color = this.props.color;
-    const cardColor = color && this.props.active ? color : "grey";
-    const image = this.props.image ? this.props.image : defaultProfilePic;
-    let awards = [];
-    // for (let i = 0; i <awardsArray.length; i++) {
-    //   awards.push(<p key={awardsArray[i].icon}>
-    //                 <Icon name={awardsArray[i].icon} size='small'/>
-    //                 <span>{awardsArray[i].text}</span>
-    //               </p>)
-    // }
+    const collaborator = this.props.collaborator;
+    if (!collaborator)
+      return;
 
+    const awardsArray = collaborator.awards && collaborator.awards.awardList;
+    const name = collaborator.name ? collaborator.name : "Unknown";
+    const color = collaborator.primaryColor;
+    const image = collaborator.img ? collaborator.img : defaultProfilePic;
+    const cardColor = color && this.props.active ? color : "grey";
+    const numTracksAdded = collaborator.trackIds && collaborator.trackIds.length ? collaborator.trackIds.length : "?";
+    let awards = [];
+    if (awardsArray) {
+      for (let i = 0; i <awardsArray.length; i++) {
+        awards.push(<p key={awardsArray[i].icon}>
+                      <Icon name={awardsArray[i].icon} size='small'/>
+                      <span>{awardsArray[i].text}</span>
+                    </p>)
+      }
+    }
     return (
       <Card link className={ccStyle.card_border} style={{borderColor: cardColor}} onClick={this.handleClick}>
         <Segment style={{marginBottom: 0}} basic>
           <Image className={ccStyle.center_img} style={{borderColor: cardColor}} width='200' height='200' circular src={image} wrapped/>
         </Segment>
         <Card.Content>
-          <Card.Header>{ this.props.name }</Card.Header>
-          <Card.Meta> Added { this.props.numTracksAdded } tracks </Card.Meta>
+          <Card.Header>{name}</Card.Header>
+          <Card.Meta> Added {numTracksAdded} tracks </Card.Meta>
           <Card.Description>
             { awards }
           </Card.Description>
@@ -45,10 +51,7 @@ class CollabCard extends Component {
 const mapStateToProps = (state, props) => ({
   active: state.activeCollab.activeCollaborators[props.id],
   // collaborator info:
-  name: state.collabInfo.collaborators[props.id] && state.collabInfo.collaborators[props.id].name,
-  image: state.collabInfo.collaborators[props.id] && state.collabInfo.collaborators[props.id].img,
-  numTracksAdded: state.collabInfo.collaborators[props.id] && state.collabInfo.collaborators[props.id].name,
-  color: state.collabInfo.collaborators[props.id] && state.collabInfo.collaborators[props.id].primaryColor
+  collaborator: state.collabInfo.collaborators[props.id]
 });
 
 export default connect(mapStateToProps, { toggleActiveCollaborator }) (CollabCard);
