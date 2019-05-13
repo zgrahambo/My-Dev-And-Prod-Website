@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { Header, Grid, Menu, Image } from 'semantic-ui-react';
 import ppStyle from './PlaylistPicker.module.scss';
 
-import { fetchPlaylists, fetchPlaylistInfo, getDemoPlaylistInfo } from '../../actions/spotifyActionCreators';
+import { fetchPlaylists, fetchPlaylistInfo, startAnalyzerDemo } from '../../actions/spotifyActionCreators';
 import Error from '../error-handling/Error/Error';
 import loading_gif from '../../img/loading.gif';
 
@@ -19,7 +19,7 @@ class PlaylistPicker extends Component {
     if (!this.props.demo)
       this.props.fetchPlaylistInfo(this.props.token, playlistInfo);
     else
-      this.props.getDemoPlaylistInfo(playlistInfo);
+      this.props.startAnalyzerDemo(playlistInfo);
   }
 
   extractCollabPlaylists() {
@@ -72,4 +72,4 @@ const mapStateToProps = state => ({
   playlistChosen: state.playlistInfo.playlistChosen
 });
 
-export default connect(mapStateToProps, { fetchPlaylists, fetchPlaylistInfo, getDemoPlaylistInfo})(PlaylistPicker);
+export default connect(mapStateToProps, { fetchPlaylists, fetchPlaylistInfo, startAnalyzerDemo})(PlaylistPicker);

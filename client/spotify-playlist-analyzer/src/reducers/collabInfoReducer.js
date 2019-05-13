@@ -9,10 +9,6 @@ const initialState = {
   error: null,
   orderedCollaborators: [],
   collaborators: {},
-  collaboratorsModel: {
-    collaborators: {},
-    order: []
-  },
   collabInfoLoaded: false,
   collabAwardsLoaded: false
 };
@@ -23,20 +19,24 @@ export default function(state=initialState, action) {
       return {
         ...state,
         collaborators: {
-          ...action.payload.collaborators
+          ...updateCollaboratorProps(action.payload.collaborators, ['id', 'primaryColor', 'secondaryColor', 'numTracksAdded'], state.collaborators)
         },
         orderedCollaborators: action.payload.order,
       };
     case FETCH_COLLABORATOR_INFO_SUCCESS:
       return {
         ...state,
-        collaborators: updateEachCollaborator(action.collaborators),
+        collaborators: {
+          ...updateCollaboratorProps(action.collaborators, ['img', 'name'], state.collaborators)
+        },
         collabInfoLoaded: true
       };
     case FETCH_COLLABORATOR_AF_AWARDS_SUCCESS:
       return {
         ...state,
-        collaborators: updateEachCollaborator(action.collaborators),
+        collaborators: {
+          ...updateCollaboratorProps(action.collaborators, ['awards', 'score'], state.collaborators)
+        },
         collabAwardsLoaded: true
       };
     case CHOOSE_NEW_PLAYLIST:
@@ -49,12 +49,17 @@ export default function(state=initialState, action) {
   }
 }
 
-const updateEachCollaborator = (collaborators) => {
+const updateCollaboratorProps = (collaborators, properties, prevCollabsState) => {
   let updatedCollaborators = {};
   for (let id in collaborators) {
+    console.log(JSON.parse(JSON.stringify(collaborators[id])))
     updatedCollaborators[id] = {
-      ...collaborators[id]
-    };
+      ...prevCollabsState[id]
+    }
+    properties.forEach((property) => {
+      updatedCollaborators[id][property] = collaborators[id][property];
+    });
   }
+  console.log(JSON.parse(JSON.stringify(updatedCollaborators)));
   return updatedCollaborators;
 }

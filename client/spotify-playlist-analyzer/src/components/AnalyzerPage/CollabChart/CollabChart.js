@@ -30,7 +30,14 @@ class CollabChart extends Component {
     let datasets = [];
     this.props.orderedCollaborators.forEach((collabID) => {
       const collaborator = collaborators[collabID];
-      const avgs = collaborator.score.getAverages();
+      const avgs = {};
+      const numTracks = collaborator.score.numTracks;
+      avgs.acousticness = collaborator.score.acousticness/numTracks;
+      avgs.danceability = collaborator.score.danceability/numTracks;
+      avgs.energy = collaborator.score.energy/numTracks;
+      avgs.instrumentalness = collaborator.score.instrumentalness/numTracks;
+      avgs.speechiness = collaborator.score.speechiness/numTracks;
+      avgs.positivity = collaborator.score.positivity/numTracks;
       let dataset = {
         "label": collaborator.name,
         "data": [avgs.acousticness,avgs.danceability,avgs.energy,avgs.instrumentalness,

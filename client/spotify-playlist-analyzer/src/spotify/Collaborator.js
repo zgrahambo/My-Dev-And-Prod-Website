@@ -5,6 +5,7 @@ export class Collaborator {
   constructor(id, trackIds=[]){
     this.id = id;
     this.trackIds = trackIds;
+    this.numTracksAdded = trackIds.length;
     this.img = null;
     this.name = null;
     this.score = new Score();
@@ -14,6 +15,7 @@ export class Collaborator {
   addTrackId(trackId) {
     this.trackIds.push(trackId);
     this.score.increaseNumTracks();
+    this.numTracksAdded++;
   }
   setImage(img) {
     this.img = img;
