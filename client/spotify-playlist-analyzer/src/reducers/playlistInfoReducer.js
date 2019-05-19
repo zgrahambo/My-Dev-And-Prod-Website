@@ -35,9 +35,7 @@ export default function(state=initialState, action) {
     case CHOOSE_NEW_PLAYLIST:
       return {
         ...state,
-        playlistChosen: false,
-        loading: false,
-        error: null
+        ...initialState
       };
     default:
       return state;

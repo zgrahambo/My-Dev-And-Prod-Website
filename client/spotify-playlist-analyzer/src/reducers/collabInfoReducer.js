@@ -52,7 +52,6 @@ export default function(state=initialState, action) {
 const updateCollaboratorProps = (collaborators, properties, prevCollabsState) => {
   let updatedCollaborators = {};
   for (let id in collaborators) {
-    console.log(JSON.parse(JSON.stringify(collaborators[id])))
     updatedCollaborators[id] = {
       ...prevCollabsState[id]
     }
@@ -60,6 +59,5 @@ const updateCollaboratorProps = (collaborators, properties, prevCollabsState) =>
       updatedCollaborators[id][property] = collaborators[id][property];
     });
   }
-  console.log(JSON.parse(JSON.stringify(updatedCollaborators)));
   return updatedCollaborators;
 }

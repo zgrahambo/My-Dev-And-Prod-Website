@@ -40,7 +40,8 @@ export default function(state=initialState, action) {
     case CHOOSE_NEW_PLAYLIST:
       return {
         ...state,
-        ...initialState
+        ...initialState,
+        demo: state.demo
       }
     default:
       return state;

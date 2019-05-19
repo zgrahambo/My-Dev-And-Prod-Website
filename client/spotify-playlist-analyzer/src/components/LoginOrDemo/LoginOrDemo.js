@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loadDemoPlaylists } from '../../actions/spotifyActionCreators';
+import { startDemo } from '../../actions/spotifyActionCreators';
 
 import { windowLoc } from '../../util/site';
 
@@ -32,7 +32,7 @@ class PlaylistPicker extends Component {
         this.sendUserToSpotifyAuthorize();
         return;
       case DEMO_TYPE:
-        this.props.loadDemoPlaylists();
+        this.props.startDemo();
         return;
       default:
         return;
@@ -69,4 +69,4 @@ const mapStateToProps = state => ({
   demo: state.playlists.demo
 });
 
-export default connect(mapStateToProps, { loadDemoPlaylists })(PlaylistPicker);
+export default connect(mapStateToProps, { startDemo })(PlaylistPicker);

@@ -118,9 +118,14 @@ function createCollabCards(token, dispatch, collabGroup) {
 }
 
 // DEMO ACTION CREATORS AND HELPER FUNCTIONS
-export function loadDemoPlaylists() {
+export function startDemo() {
   return (dispatch) => {
     dispatch(activateDemo());
+  };
+}
+
+export function loadDemoPlaylists() {
+  return (dispatch) => {
     dispatch(startPlaylistPickerLoading());
     const playlists = getDemoPlaylists();
     dispatch(loadedPlaylistsSuccessfully(playlists));

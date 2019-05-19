@@ -4,22 +4,27 @@ import { Redirect } from 'react-router-dom';
 import { Header, Grid, Menu, Image } from 'semantic-ui-react';
 import ppStyle from './PlaylistPicker.module.scss';
 
-import { fetchPlaylists, fetchPlaylistInfo, startAnalyzerDemo } from '../../actions/spotifyActionCreators';
+import { fetchPlaylists, fetchPlaylistInfo, loadDemoPlaylists, startAnalyzerDemo } from '../../actions/spotifyActionCreators';
 import Error from '../error-handling/Error/Error';
 import loading_gif from '../../img/loading.gif';
 
 class PlaylistPicker extends Component {
   constructor(props) {
     super(props);
-    if(!this.props.demo)
+
+    if (this.props.demo) {
+      this.props.loadDemoPlaylists();
+    } else {
       this.props.fetchPlaylists(this.props.token);
+    }
   }
 
   handleClick(e, playlistInfo) {
-    if (!this.props.demo)
-      this.props.fetchPlaylistInfo(this.props.token, playlistInfo);
-    else
+    if (this.props.demo) {
       this.props.startAnalyzerDemo(playlistInfo);
+    } else {
+      this.props.fetchPlaylistInfo(this.props.token, playlistInfo);
+    }
   }
 
   extractCollabPlaylists() {
@@ -46,7 +51,6 @@ class PlaylistPicker extends Component {
 
     let menuItems = this.extractCollabPlaylists();
     let loadingSpinner = this.props.loading && <Image src={loading_gif} centered/>;
-
     return (!this.props.playlistChosen &&
       <div>
         <Header className={ppStyle['offset-header']} textAlign="center" as="h2"> Choose a playlist:</Header>
@@ -72,4 +76,4 @@ const mapStateToProps = state => ({
   playlistChosen: state.playlistInfo.playlistChosen
 });
 
-export default connect(mapStateToProps, { fetchPlaylists, fetchPlaylistInfo, startAnalyzerDemo})(PlaylistPicker);
+export default connect(mapStateToProps, { fetchPlaylists, fetchPlaylistInfo, loadDemoPlaylists, startAnalyzerDemo})(PlaylistPicker);
