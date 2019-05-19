@@ -23,17 +23,21 @@ class CollabChart extends Component {
     };
   }
   legendClickHandler = (clickEvent, legendClicked) => {
-    this.props.toggleActiveCollaborator(
-      this.props.collaboratorsModel.order[legendClicked.datasetIndex]
-    );
+    this.props.toggleActiveCollaborator(this.props.orderedCollaborators[legendClicked.datasetIndex])
   }
   getDatasets = () => {
-    const collaboratorsModel = this.props.collaboratorsModel;
-    const collaborators = collaboratorsModel.collaborators;
+    const collaborators = this.props.collaborators;
     let datasets = [];
-    collaboratorsModel.order.forEach((collabID) => {
+    this.props.orderedCollaborators.forEach((collabID) => {
       const collaborator = collaborators[collabID];
-      const avgs = collaborator.score.getAverages();
+      const avgs = {};
+      const numTracks = collaborator.score.numTracks;
+      avgs.acousticness = collaborator.score.acousticness/numTracks;
+      avgs.danceability = collaborator.score.danceability/numTracks;
+      avgs.energy = collaborator.score.energy/numTracks;
+      avgs.instrumentalness = collaborator.score.instrumentalness/numTracks;
+      avgs.speechiness = collaborator.score.speechiness/numTracks;
+      avgs.positivity = collaborator.score.positivity/numTracks;
       let dataset = {
         "label": collaborator.name,
         "data": [avgs.acousticness,avgs.danceability,avgs.energy,avgs.instrumentalness,
@@ -54,6 +58,10 @@ class CollabChart extends Component {
   }
 
   render() {
+    if (!this.props.collabAwardsLoaded) {
+      return null;
+    }
+    
     const data = {
       labels: this.labels,
       datasets: this.getDatasets()
@@ -71,7 +79,8 @@ class CollabChart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  collaboratorsModel: state.collabInfo.collaboratorsModel,
+  collaborators: state.collabInfo.collaborators,
+  orderedCollaborators: state.collabInfo.orderedCollaborators,
   collabInfoLoaded: state.collabInfo.collabInfoLoaded,
   collabAwardsLoaded: state.collabInfo.collabAwardsLoaded,
   active: state.activeCollab.activeCollaborators

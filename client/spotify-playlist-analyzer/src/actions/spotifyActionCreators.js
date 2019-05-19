@@ -30,7 +30,6 @@ export function fetchPlaylists(token) {
     })
     .then(res => res.json())
     .then(playlists => {
-      console.log(playlists)
       dispatch(loadedPlaylistsSuccessfully(playlists.items));
     })
     .catch(error => {
@@ -41,12 +40,13 @@ export function fetchPlaylists(token) {
 
 export function fetchPlaylistInfo(token, playlistInfo) {
   return (dispatch) => {
-    dispatch(startedLoadingPlaylistInfo());
+    dispatch(startedLoadingPlaylistInfo(playlistInfo.name));
     
     fetchPlaylistTracksInfo(token, playlistInfo.tracks.href, dispatch)
     .then(tracks => generateCollabGroupObject(tracks))
     .then((collabGroup) => {
       const collaborators = collabGroup.collabIdToCollabObj;
+      // should just pass returned data that collabcard users 
       dispatch(successfullyLoadedPlaylistInfo({ collaborators: collaborators, order: collabGroup.collabOrder }));
       dispatch(activateCollaborator(collaborators));
       return collabGroup;
@@ -118,10 +118,14 @@ function createCollabCards(token, dispatch, collabGroup) {
 }
 
 // DEMO ACTION CREATORS AND HELPER FUNCTIONS
+export function startDemo() {
+  return (dispatch) => {
+    dispatch(activateDemo());
+  };
+}
+
 export function loadDemoPlaylists() {
   return (dispatch) => {
-    console.log(demo)
-    dispatch(activateDemo());
     dispatch(startPlaylistPickerLoading());
     const playlists = getDemoPlaylists();
     dispatch(loadedPlaylistsSuccessfully(playlists));
@@ -132,9 +136,14 @@ const getDemoPlaylists = () => {
   return demo.playlists;
 }
 
-export function getDemoPlaylistInfo(playlistInfo) {
+export function startAnalyzerDemo(playlistInfo) {
   return (dispatch) => {
     dispatch(startedLoadingPlaylistInfo(playlistInfo.name));
-    dispatch();
+    dispatch(successfullyLoadedPlaylistInfo({collaborators: demo.collaborators, 
+                                             order: demo.orderedCollaborators}));
+    dispatch(activateCollaborator(demo.collaborators));
+    dispatch(successfullyLoadedCollaboratorInfo(demo.collaborators));
+
+    dispatch(successfullyLoadedAudioFeatureAwards(demo.collaborators))
   };
 }

@@ -9,7 +9,23 @@ import { chooseNewPlaylist } from '../../actions/spotifyActionCreators';
 
 class AnalyzerHeader extends Component {
   handleClickChooseNewPlaylist() {
-    this.props.history.push('/spa/choose-playlist');
+    if (this.props.demo) {
+      this.props.history.push({
+        pathname: "/spa/choose-playlist",
+        state:{
+          demo:"value"
+        }
+      });
+    }
+    else {
+      this.props.history.push({
+        pathname: "/spa/choose-playlist",
+        state:{
+          key:"value"
+        }
+      });
+    }
+    
     this.props.chooseNewPlaylist();
   }
 
@@ -41,7 +57,8 @@ class AnalyzerHeader extends Component {
 }
 
 const mapStateToProps = state => ({
-  playlistChosen: state.playlistInfo.playlistChosen
+  playlistChosen: state.playlistInfo.playlistChosen,
+  demo: state.playlists.demo
 });
 
 export default withRouter(connect(mapStateToProps, { chooseNewPlaylist })(AnalyzerHeader));

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loadDemoPlaylists } from '../../actions/spotifyActionCreators';
+import { startDemo } from '../../actions/spotifyActionCreators';
 
 import { windowLoc } from '../../util/site';
 
 import { Grid, Button } from 'semantic-ui-react';
 import Error from '../error-handling/Error/Error';
 
-const LOGIN_TYPE = 'login'
+const LOGIN_TYPE = 'login';
 const DEMO_TYPE = 'demo';
 
 class PlaylistPicker extends Component {
@@ -32,7 +32,7 @@ class PlaylistPicker extends Component {
         this.sendUserToSpotifyAuthorize();
         return;
       case DEMO_TYPE:
-        this.props.loadDemoPlaylists();
+        this.props.startDemo();
         return;
       default:
         return;
@@ -53,9 +53,9 @@ class PlaylistPicker extends Component {
         <Grid centered>
           <Grid.Column textAlign="center" width={10}>
             <Button.Group>
-              <Button onClick={(e) => this.handleClick(e, LOGIN_TYPE)} positive>Login to Analyzer Your Playlists</Button>
+              <Button onClick={(e) => this.handleClick(e, LOGIN_TYPE)} positive>Login to Analyze Your Playlists</Button>
               <Button.Or />
-              <Button disabled onClick={(e) => this.handleClick(e, DEMO_TYPE)}>Demo Playlist</Button>
+              <Button onClick={(e) => this.handleClick(e, DEMO_TYPE)}>Demo Playlist</Button>
             </Button.Group>
           </Grid.Column>
         </Grid>
@@ -69,4 +69,4 @@ const mapStateToProps = state => ({
   demo: state.playlists.demo
 });
 
-export default connect(mapStateToProps, { loadDemoPlaylists })(PlaylistPicker);
+export default connect(mapStateToProps, { startDemo })(PlaylistPicker);
