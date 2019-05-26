@@ -8,14 +8,21 @@ import {
   getCollaboratorObjects,
 } from '../spotify/utils';
 import demo from './demo.json';
-import { activateDemo, startPlaylistPickerLoading, loadedPlaylistsSuccessfully,
+import { activateLoggedIn, activateDemo, startPlaylistPickerLoading, loadedPlaylistsSuccessfully,
          failedToLoadPlaylists, startedLoadingPlaylistInfo, failedToLoadPlaylistInfo,
          successfullyLoadedCollaboratorInfo, failedToLoadCollaboratorInfo,
          successfullyLoadedAudioFeatureAwards, failedToLoadedAudioFeatureAwards,
-         successfullyLoadedPlaylistInfo, activateCollaborator, chooseNewPlaylistAction } from './actions';
+         successfullyLoadedPlaylistInfo, activateCollaborator, chooseNewPlaylistAction,
+         restartAppAction } from './actions';
 
 
-// REAL (SPOTIFY API) PLAYLIST ACTION CREATORS AND HELPER FUNCTIONS
+// LOGGED IN (SPOTIFY) PLAYLIST ACTION CREATORS AND HELPER FUNCTIONS
+
+export function userLoggedIn(token) {
+  return (dispatch) => {
+    dispatch(activateLoggedIn(token));
+  }
+}
 
 /* fetchPlaylists is a function that takes in */
 /* spotify token and returns an async function  */
@@ -64,6 +71,12 @@ export function fetchPlaylistInfo(token, playlistInfo) {
 export function chooseNewPlaylist() {
   return (dispatch) => {
     dispatch(chooseNewPlaylistAction());
+  };
+};
+
+export function restartApp() {
+  return (dispatch) => {
+    dispatch(restartAppAction());
   };
 };
 
@@ -136,14 +149,17 @@ const getDemoPlaylists = () => {
   return demo.playlists;
 }
 
-export function startAnalyzerDemo(playlistInfo) {
+export function startAnalyzerDemo(playlistInfo, playlistId) {
   return (dispatch) => {
+    const collaboratorInfo = demo.playlistIdToCollaboratorsMap[playlistId];
+    const collaborators = collaboratorInfo.collaborators;
+    const orderedCollaborators = collaboratorInfo.orderedCollaborators
     dispatch(startedLoadingPlaylistInfo(playlistInfo.name));
-    dispatch(successfullyLoadedPlaylistInfo({collaborators: demo.collaborators, 
-                                             order: demo.orderedCollaborators}));
-    dispatch(activateCollaborator(demo.collaborators));
-    dispatch(successfullyLoadedCollaboratorInfo(demo.collaborators));
+    dispatch(successfullyLoadedPlaylistInfo({collaborators: collaborators, 
+                                             order: orderedCollaborators}));
+    dispatch(activateCollaborator(collaborators));
+    dispatch(successfullyLoadedCollaboratorInfo(collaborators));
 
-    dispatch(successfullyLoadedAudioFeatureAwards(demo.collaborators))
+    dispatch(successfullyLoadedAudioFeatureAwards(collaborators))
   };
 }

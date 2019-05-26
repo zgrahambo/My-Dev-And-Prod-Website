@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { startDemo } from '../../actions/spotifyActionCreators';
+import { parse } from 'query-string';
+import { startDemo, userLoggedIn } from '../../actions/spotifyActionCreators';
 
 import { windowLoc } from '../../util/site';
 
@@ -11,7 +12,32 @@ import Error from '../error-handling/Error/Error';
 const LOGIN_TYPE = 'login';
 const DEMO_TYPE = 'demo';
 
-class PlaylistPicker extends Component {
+class LoginOrDemo extends Component {
+  constructor(props) {
+    super(props)
+    const token = this.getAccessToken();
+    if (token) {
+      this.props.userLoggedIn(token);
+    }
+  }
+
+  getAccessToken() {
+    const hash = parse(windowLoc.hash);
+    return (hash && hash.access_token);
+  }
+  
+  handleClick = (e, type) => {
+    switch(type) {
+      case LOGIN_TYPE:
+        this.sendUserToSpotifyAuthorize();
+        return;
+      case DEMO_TYPE:
+        this.props.startDemo();
+        return;
+      default:
+        return;
+    }
+  }
 
   sendUserToSpotifyAuthorize() {
     const clientID = "9e240701125547c69d71dce42a0c120b";
@@ -26,29 +52,15 @@ class PlaylistPicker extends Component {
     windowLoc.replace(encodeURI(spotifyURI));
   }
 
-  handleClick = (e, type) => {
-    switch(type) {
-      case LOGIN_TYPE:
-        this.sendUserToSpotifyAuthorize();
-        return;
-      case DEMO_TYPE:
-        this.props.startDemo();
-        return;
-      default:
-        return;
-    }
-  }
-
   render() {
     const error = this.props.error;
     if (error) {
       return <Error msg={error.msg} link={error.link} linkText={error.linkText}/>;
     }
 
-    if (this.props.token || this.props.demo) {
+    if (this.props.loggedIn || this.props.demo) {
       return (<Redirect to='/spa/choose-playlist'/>);
-    }
-    else {
+    } else {
       return (
         <Grid centered>
           <Grid.Column textAlign="center" width={10}>
@@ -65,8 +77,8 @@ class PlaylistPicker extends Component {
 }
 
 const mapStateToProps = state => ({
-  playlistChosen: state.playlistInfo.playlistChosen,
+  loggedIn: state.playlists.loggedIn,
   demo: state.playlists.demo
 });
 
-export default connect(mapStateToProps, { startDemo })(PlaylistPicker);
+export default connect(mapStateToProps, { startDemo, userLoggedIn })(LoginOrDemo);

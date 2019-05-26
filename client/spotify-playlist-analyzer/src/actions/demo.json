@@ -11,70 +11,143 @@
       "id": "37i9dQZF1DXbcPC6Vvqudd"
     }
   ],
-  "orderedCollaborators": ["dakary", "syke117"],
-  "collaborators": {
-    "dakary": {
-      "name": "Zachary Graham",
-      "img": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=750624974982391&height=200&width=200&ext=1560183838&hash=AeQ6dx1QzY6oVwpk",
-      "primaryColor": "red",
-      "secondaryColor": "rgb(255, 0, 0, 0.2)",
-      "numTracksAdded": 77,
-      "score": {
-        "acousticness": 12.548602999999998,
-        "danceability": 39.126,
-        "duration": 15599781,
-        "energy": 44.681,
-        "instrumentalness": 4.6229824,
-        "loudness": -432.68699999999995,
-        "numTracks": 65,
-        "popularity": 3421,
-        "positivity": 31.4637,
-        "speechiness": 4.9388000000000005,
-        "tempo": 7706.3910000000005
-      },
-      "awards": {
-        "awardList": [
-          {
-            "icon": "clock outline",
-            "text": "Longest avg song length"
+  "playlistIdToCollaboratorsMap": {
+    "1hpVIFIaxoGcM173L1EcyW": {
+      "orderedCollaborators": ["dakary", "syke117"],
+      "collaborators": {
+        "dakary": {
+          "name": "Zachary Graham",
+          "img": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=750624974982391&height=200&width=200&ext=1560183838&hash=AeQ6dx1QzY6oVwpk",
+          "primaryColor": "red",
+          "secondaryColor": "rgb(255, 0, 0, 0.2)",
+          "numTracksAdded": 77,
+          "score": {
+            "acousticness": 12.548602999999998,
+            "danceability": 39.126,
+            "duration": 15599781,
+            "energy": 44.681,
+            "instrumentalness": 4.6229824,
+            "loudness": -432.68699999999995,
+            "numTracks": 65,
+            "popularity": 3421,
+            "positivity": 31.4637,
+            "speechiness": 4.9388000000000005,
+            "tempo": 7706.3910000000005
+          },
+          "awards": {
+            "awardList": [
+              {
+                "icon": "clock outline",
+                "text": "Longest avg song length"
+              }
+            ]
           }
-        ]
+        },
+        "syke117": {
+          "name": "Johnny Appleseed",
+          "img": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/13716113_10208257889057340_555305655447473927_n.jpg?_nc_cat=110&_nc_ht=scontent.xx&oh=2d947086628c8cc9f00259233768c143&oe=5D5E718B",
+          "primaryColor": "blue",
+          "secondaryColor" : "rgb(0, 0, 255, 0.2)",
+          "numTracksAdded": 97,
+          "score": {
+            "acousticness": 18.165781,
+            "danceability": 29.403999999999993,
+            "duration": 11556947,
+            "energy": 29.109000000000005,
+            "instrumentalness": 3.89048569,
+            "loudness": -412.844,
+            "numTracks": 50,
+            "popularity": 2833,
+            "positivity": 25.566,
+            "speechiness": 3.8871,
+            "tempo": 5979.193999999999
+          },
+          "awards": {
+            "awardList": [
+              {
+                "icon": "group",
+                "text": "Most popular songs"
+              },
+              {
+                "icon": "battery zero",
+                "text": "Loves acoustic songs"
+              },
+              {
+                "icon": "wrench",
+                "text": "Enjoys real instruments"
+              }
+            ]
+          }
+        }
       }
-    },
-    "syke117": {
-      "name": "Johnny Appleseed",
-      "img": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/13716113_10208257889057340_555305655447473927_n.jpg?_nc_cat=110&_nc_ht=scontent.xx&oh=2d947086628c8cc9f00259233768c143&oe=5D5E718B",
-      "primaryColor": "blue",
-      "secondaryColor" : "rgb(0, 0, 255, 0.2)",
-      "numTracksAdded": 97,
-      "score": {
-        "acousticness": 18.165781,
-        "danceability": 29.403999999999993,
-        "duration": 11556947,
-        "energy": 29.109000000000005,
-        "instrumentalness": 3.89048569,
-        "loudness": -412.844,
-        "numTracks": 50,
-        "popularity": 2833,
-        "positivity": 25.566,
-        "speechiness": 3.8871,
-        "tempo": 5979.193999999999
-      },
-      "awards": {
-        "awardList": [
-          {
-            "icon": "group",
-            "text": "Most popular songs"
+    }, 
+    "37i9dQZF1DXbcPC6Vvqudd": {
+      "orderedCollaborators": ["dakary", "syke117"],
+      "collaborators": {
+        "dakary": {
+          "name": "Zachary Graham",
+          "img": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=750624974982391&height=200&width=200&ext=1560183838&hash=AeQ6dx1QzY6oVwpk",
+          "primaryColor": "red",
+          "secondaryColor": "rgb(255, 0, 0, 0.2)",
+          "numTracksAdded": 77,
+          "score": {
+            "acousticness": 12.548602999999998,
+            "danceability": 39.126,
+            "duration": 15599781,
+            "energy": 44.681,
+            "instrumentalness": 4.6229824,
+            "loudness": -432.68699999999995,
+            "numTracks": 65,
+            "popularity": 3421,
+            "positivity": 31.4637,
+            "speechiness": 4.9388000000000005,
+            "tempo": 7706.3910000000005
           },
-          {
-            "icon": "battery zero",
-            "text": "Loves acoustic songs"
-          },
-          {
-            "icon": "wrench",
-            "text": "Enjoys real instruments"
+          "awards": {
+            "awardList": [
+              {
+                "icon": "clock outline",
+                "text": "Longest avg song length"
+              }
+            ]
           }
-        ]
+        },
+        "syke117": {
+          "name": "Johnny Appleseed",
+          "img": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/13716113_10208257889057340_555305655447473927_n.jpg?_nc_cat=110&_nc_ht=scontent.xx&oh=2d947086628c8cc9f00259233768c143&oe=5D5E718B",
+          "primaryColor": "blue",
+          "secondaryColor" : "rgb(0, 0, 255, 0.2)",
+          "numTracksAdded": 97,
+          "score": {
+            "acousticness": 18.165781,
+            "danceability": 29.403999999999993,
+            "duration": 11556947,
+            "energy": 29.109000000000005,
+            "instrumentalness": 3.89048569,
+            "loudness": -412.844,
+            "numTracks": 50,
+            "popularity": 2833,
+            "positivity": 25.566,
+            "speechiness": 3.8871,
+            "tempo": 5979.193999999999
+          },
+          "awards": {
+            "awardList": [
+              {
+                "icon": "group",
+                "text": "Most popular songs"
+              },
+              {
+                "icon": "battery zero",
+                "text": "Loves acoustic songs"
+              },
+              {
+                "icon": "wrench",
+                "text": "Enjoys real instruments"
+              }
+            ]
+          }
+        }
       }
     }
   }

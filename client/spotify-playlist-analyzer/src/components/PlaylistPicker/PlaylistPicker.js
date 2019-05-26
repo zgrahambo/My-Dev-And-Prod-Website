@@ -14,15 +14,17 @@ class PlaylistPicker extends Component {
 
     if (this.props.demo) {
       this.props.loadDemoPlaylists();
-    } else {
+    } 
+    else if(this.props.token) {
       this.props.fetchPlaylists(this.props.token);
     }
   }
 
-  handleClick(e, playlistInfo) {
+  handleClick(e, playlistInfo, playlistId) {
     if (this.props.demo) {
-      this.props.startAnalyzerDemo(playlistInfo);
-    } else {
+      this.props.startAnalyzerDemo(playlistInfo, playlistId);
+    } 
+    else if (this.props.token) {
       this.props.fetchPlaylistInfo(this.props.token, playlistInfo);
     }
   }
@@ -33,7 +35,7 @@ class PlaylistPicker extends Component {
       let menuItems = [];
       for (let i = 0; i < playlists.length; i++) {
         if (playlists[i].collaborative)
-          menuItems.push(<Menu.Item onClick={(e) => this.handleClick(e, playlists[i])} key={playlists[i].id} as='a' name={playlists[i].name}>{playlists[i].name}</Menu.Item>);
+          menuItems.push(<Menu.Item onClick={(e) => this.handleClick(e, playlists[i], playlists[i].id)} key={playlists[i].id} as='a' name={playlists[i].name}>{playlists[i].name}</Menu.Item>);
       }
       return menuItems;
     }
@@ -73,6 +75,7 @@ const mapStateToProps = state => ({
   loading: state.playlists.loading,
   error: state.playlists.error,
   demo: state.playlists.demo,
+  token: state.playlists.token,
   playlistChosen: state.playlistInfo.playlistChosen
 });
 

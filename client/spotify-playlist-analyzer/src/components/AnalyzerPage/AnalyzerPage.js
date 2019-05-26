@@ -7,8 +7,8 @@ class AnalyzerPage extends Component {
   render() {
     return (
       <div id="analyzer_page">
-        <CollabCardsFrame token={this.props.token} />
-        <CollabChart token={ this.props.token } />
+        <CollabCardsFrame/>
+        <CollabChart/>
       </div>
     );
   }

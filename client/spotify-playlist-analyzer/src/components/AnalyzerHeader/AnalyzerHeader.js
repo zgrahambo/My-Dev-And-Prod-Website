@@ -5,31 +5,27 @@ import { homeUrl } from '../../util/site';
 import { Header, Grid, Button, Icon, Menu } from 'semantic-ui-react';
 import headerStyle from './AnalyzerHeader.module.scss'
 
-import { chooseNewPlaylist } from '../../actions/spotifyActionCreators';
+import { chooseNewPlaylist, restartApp } from '../../actions/spotifyActionCreators';
 
 class AnalyzerHeader extends Component {
   handleClickChooseNewPlaylist() {
-    if (this.props.demo) {
-      this.props.history.push({
-        pathname: "/spa/choose-playlist",
-        state:{
-          demo:"value"
-        }
-      });
-    }
-    else {
-      this.props.history.push({
-        pathname: "/spa/choose-playlist",
-        state:{
-          key:"value"
-        }
-      });
-    }
+    this.props.history.push({
+      pathname: "/spa/choose-playlist"
+    });
     
     this.props.chooseNewPlaylist();
   }
 
+  handleClickLoginOrDemo() {
+    this.props.history.push({
+      pathname: "/spa"
+    });
+    this.props.restartApp();
+  }
+
   render() {
+    const loggedIn = this.props.loggedIn;
+    const demo = this.props.demo;
     return (
       <Menu className={headerStyle['no-box-shadow']} fixed="top">
         <Menu.Item>
@@ -38,13 +34,23 @@ class AnalyzerHeader extends Component {
           </Header>
         </Menu.Item>
         <Menu.Menu position="right">
+          {(loggedIn || demo) && 
+            <Menu.Item>
+              <Button onClick={() => this.handleClickLoginOrDemo()} animated className={headerStyle.loginOrDemo}>
+                {loggedIn && <Button.Content visible>Demo</Button.Content>}
+                {demo && <Button.Content visible>Login</Button.Content>}
+                <Button.Content hidden><Icon name="arrow left"/></Button.Content>
+              </Button>
+            </Menu.Item>
+          }
           {this.props.playlistChosen && 
-          <Menu.Item>
-            <Button onClick={() => this.handleClickChooseNewPlaylist()} animated className={headerStyle.chooseDiffPlaylist}>
-              <Button.Content visible>Choose a Different Playlist</Button.Content>
-              <Button.Content hidden><Icon name="arrow left"/></Button.Content>
-            </Button>
-          </Menu.Item>}
+            <Menu.Item>
+              <Button onClick={() => this.handleClickChooseNewPlaylist()} animated className={headerStyle.chooseDiffPlaylist}>
+                <Button.Content visible>Choose Playlist</Button.Content>
+                <Button.Content hidden><Icon name="arrow left"/></Button.Content>
+              </Button>
+            </Menu.Item>
+          }
           <Menu.Item>
             <Grid.Column width={3}>
               <Button href={homeUrl}>Homepage</Button>
@@ -57,8 +63,9 @@ class AnalyzerHeader extends Component {
 }
 
 const mapStateToProps = state => ({
-  playlistChosen: state.playlistInfo.playlistChosen,
-  demo: state.playlists.demo
+  loggedIn: state.playlists.loggedIn,
+  demo: state.playlists.demo,
+  playlistChosen: state.playlistInfo.playlistChosen
 });
 
-export default withRouter(connect(mapStateToProps, { chooseNewPlaylist })(AnalyzerHeader));
+export default withRouter(connect(mapStateToProps, { chooseNewPlaylist, restartApp })(AnalyzerHeader));

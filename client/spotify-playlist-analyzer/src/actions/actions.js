@@ -2,6 +2,7 @@ import {
   FETCH_PLAYLISTS_LOADING,
   FETCH_PLAYLISTS_SUCCESS,
   FETCH_PLAYLISTS_FAILURE,
+  ACTIVATE_LOGGED_IN,
   ACTIVATE_DEMO,
 
   PLAYLIST_CHOSEN_TRACK_INFO_LOADING,
@@ -14,8 +15,16 @@ import {
   FETCH_COLLABORATOR_AF_AWARDS_SUCCESS,
   FETCH_COLLABORATOR_AF_AWARDS_FAILURE,
   ACTIVATE_COLLABORATORS,
-  CHOOSE_NEW_PLAYLIST } from './types';
+  CHOOSE_NEW_PLAYLIST,
+  RESTART_APP } from './types';
   
+export const activateLoggedIn = (token) => {
+  return {
+    type: ACTIVATE_LOGGED_IN,
+    token: token
+  };
+};
+
 export const activateDemo = () => {
   return {
     type: ACTIVATE_DEMO
@@ -108,5 +117,11 @@ export const activateCollaborator = (collaborators) => {
 export const chooseNewPlaylistAction = () => {
   return {
     type: CHOOSE_NEW_PLAYLIST
+  };
+};
+
+export const restartAppAction = () => {
+  return {
+    type: RESTART_APP
   };
 };
