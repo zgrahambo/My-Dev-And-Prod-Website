@@ -82,7 +82,7 @@
       }
     }, 
     "37i9dQZF1DXbcPC6Vvqudd": {
-      "orderedCollaborators": ["dakary", "syke117"],
+      "orderedCollaborators": ["dakary", "bigboi", "bigbrain"],
       "collaborators": {
         "dakary": {
           "name": "Zachary Graham",
@@ -112,12 +112,12 @@
             ]
           }
         },
-        "syke117": {
-          "name": "Johnny Appleseed",
-          "img": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/13716113_10208257889057340_555305655447473927_n.jpg?_nc_cat=110&_nc_ht=scontent.xx&oh=2d947086628c8cc9f00259233768c143&oe=5D5E718B",
+        "bigboi": {
+          "name": "Danny DeVito",
+          "img": "https://i.imgur.com/u0cXY0q.jpg",
           "primaryColor": "blue",
           "secondaryColor" : "rgb(0, 0, 255, 0.2)",
-          "numTracksAdded": 97,
+          "numTracksAdded": 44,
           "score": {
             "acousticness": 18.165781,
             "danceability": 29.403999999999993,
@@ -134,16 +134,36 @@
           "awards": {
             "awardList": [
               {
-                "icon": "group",
-                "text": "Most popular songs"
-              },
-              {
-                "icon": "battery zero",
-                "text": "Loves acoustic songs"
-              },
-              {
                 "icon": "wrench",
                 "text": "Enjoys real instruments"
+              }
+            ]
+          }
+        },
+        "bigbrain": {
+          "name": "Jimmy Neutron",
+          "img": "https://i.imgur.com/MJjB68B.jpg",
+          "primaryColor": "yellow",
+          "secondaryColor" : "rgb(255, 255, 0, 0.2)",
+          "numTracksAdded": 39,
+          "score": {
+            "acousticness": 8.919622999999998,
+            "danceability": 24.334999999999994,
+            "duration": 8454784,
+            "energy": 26.30099999999999,
+            "instrumentalness": 2.48599347,
+            "loudness": -265.344,
+            "numTracks": 39,
+            "popularity": 1584,
+            "positivity": 23.063000000000006,
+            "speechiness": 4.4099,
+            "tempo": 4404.261
+          },
+          "awards": {
+            "awardList": [
+              {
+                "icon": "group",
+                "text": "Most popular songs"
               }
             ]
           }

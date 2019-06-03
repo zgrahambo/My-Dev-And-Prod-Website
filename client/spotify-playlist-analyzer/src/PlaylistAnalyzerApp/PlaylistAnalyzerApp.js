@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { Container } from 'semantic-ui-react';
 import store from '../store';
 
@@ -15,14 +16,14 @@ class PlaylistAnalyzerApp extends Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter history={createBrowserHistory()}>
           <Container className={appStyle.container} >
             <AnalyzerHeader>
               Spotify Playlist Analyzer
             </AnalyzerHeader>
             <ErrorBoundary>
               <Route exact path='/spa' render={(props) => {
-                return <LoginOrDemo />
+                return <LoginOrDemo/>
               }}
               />
               <Route path='/spa/choose-playlist' render={(props) => {
