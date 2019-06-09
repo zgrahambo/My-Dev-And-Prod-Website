@@ -9,8 +9,8 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, '../client/homepage/build')));
-app.use(express.static(path.join(__dirname, '../client/spotify-playlist-analyzer/build')));
-
+//app.use(express.static(path.join(__dirname, '../client/spotify-playlist-analyzer/build')));
+app.use(express.static(path.join(__dirname, '../node_modules/spotify-playlist-analyzer/build')));
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
@@ -26,7 +26,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/spa', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client/spotify-playlist-analyzer/build/index.html'));
+    res.sendFile(path.join(__dirname, '../node_modules/spotify-playlist-analyzer/build/index.html'));
 });
 
 // catch 404 
